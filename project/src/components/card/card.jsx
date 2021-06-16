@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import offersPropShape from '../../prop-validation/offers.prop';
 
 function Card ({hotel}) {
   const {title,price,type} = hotel;
@@ -58,11 +59,5 @@ function Card ({hotel}) {
 export default Card;
 
 Card.propTypes = {
-  hotel: PropTypes.objectOf (
-    PropTypes.shape ({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      type: PropTypes.string.isRequired,
-    })).isRequired,
+  hotel: PropTypes.objectOf (offersPropShape).isRequired,
 };

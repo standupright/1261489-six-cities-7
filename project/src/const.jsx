@@ -5,3 +5,10 @@ export const AppRoute = {
   ROOT: '/',
   DEV_ROOM: '/dev-artist',
 };
+
+export const OfferType = {
+  apartment: 'Apartment',
+  room: 'Private Room',
+  house: 'House',
+  hotel: 'Hotel',
+};
