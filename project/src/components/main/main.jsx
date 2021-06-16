@@ -3,7 +3,7 @@ import Card from '../card/card';
 import PropTypes from 'prop-types';
 
 function Main (props) {
-  const {places} = props;
+  const {offers} = props;
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -74,7 +74,7 @@ function Main (props) {
             </form>
             <div className="cities__places-list places__list tabs__content">
 
-              {places.map((hotel) => <Card key={hotel.id} hotel={hotel} />)}
+              {offers.map((hotel) => <Card key={hotel.id} hotel={hotel} />)}
 
             </div>
           </section>
@@ -89,7 +89,7 @@ function Main (props) {
 
 Main.propTypes = {
   //numberPlaces: PropTypes.number.isRequired,
-  places: PropTypes.arrayOf (
+  offers: PropTypes.arrayOf (
     PropTypes.shape ({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,

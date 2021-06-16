@@ -9,12 +9,12 @@ import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 function App (props) {
-  const {numberPlaces, places} = props;
+  const {numberOffers, offers} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main numberPlaces={numberPlaces} places={places} />
+          <Main numberOffers={numberOffers} offers={offers} />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <LoginScreen />
@@ -36,8 +36,8 @@ function App (props) {
 export default App;
 
 App.propTypes = {
-  numberPlaces: PropTypes.number.isRequired,
-  places: PropTypes.arrayOf (
+  numberOffers: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf (
     PropTypes.shape ({
       id: PropTypes.number.isRequired,
       title: PropTypes.string.isRequired,
