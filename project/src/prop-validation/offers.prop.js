@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {OfferType} from '../const';
+import {offerTypes} from '../const';
 
 const location = PropTypes.shape({
   latitude: PropTypes.number.isRequired,
@@ -31,7 +31,7 @@ const offersPropShape = PropTypes.shape({
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(OfferType).isRequired,
+  type: PropTypes.oneOf(offerTypes).isRequired,
 }).isRequired;
 
 export default offersPropShape;

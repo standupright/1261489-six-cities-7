@@ -3,17 +3,27 @@ import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 
 function Card ({hotel}) {
-  const {title,price,type} = hotel;
+  const {
+    previewImage,
+    isPremium,
+    price,
+    title,
+    type,
+    rating} = hotel;
+
+  const ratingStars = `${Math.round(rating) / 5 * 100}%`;
   return (
     <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
+      {isPremium &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
+
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
+            src={previewImage}
             width="260"
             height="200"
             alt="Place image"
@@ -39,7 +49,7 @@ function Card ({hotel}) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}} />
+            <span style={{width: ratingStars}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -59,5 +69,5 @@ function Card ({hotel}) {
 export default Card;
 
 Card.propTypes = {
-  hotel: PropTypes.objectOf (offersPropShape).isRequired,
+  hotel: PropTypes.shape(offersPropShape).isRequired,
 };

@@ -6,9 +6,4 @@ export const AppRoute = {
   DEV_ROOM: '/dev-artist',
 };
 
-export const OfferType = {
-  apartment: 'Apartment',
-  room: 'Private Room',
-  house: 'House',
-  hotel: 'Hotel',
-};
+export const offerTypes = ['Apartment','Private room','House','Hotel'];
