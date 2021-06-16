@@ -1,9 +1,12 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
+import {AppRoute} from '../../const';
 
-function Card ({hotel}) {
+function Card ({hotel,setActiveCard}) {
   const {
+    id,
     previewImage,
     isPremium,
     price,
@@ -13,7 +16,9 @@ function Card ({hotel}) {
 
   const ratingStars = `${Math.round(rating) / 5 * 100}%`;
   return (
-    <article className="cities__place-card place-card">
+    <article className="cities__place-card place-card"
+      onMouseEnter={() => setActiveCard(hotel)}
+    >
       {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
@@ -54,9 +59,9 @@ function Card ({hotel}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
+          <Link to={`${AppRoute.OFFER}/${id}`}>
             {title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">
           {type}
@@ -70,4 +75,5 @@ export default Card;
 
 Card.propTypes = {
   hotel: PropTypes.shape(offersPropShape).isRequired,
+  setActiveCard: PropTypes.func,
 };

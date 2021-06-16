@@ -21,10 +21,10 @@ function App (props) {
           <LoginScreen />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesScreen />
+          <FavoritesScreen offers={offers} />
         </Route>
         <Route exact path={AppRoute.ROOM}>
-          <RoomScreen />
+          <RoomScreen  offers={offers}/>
         </Route>
         <Route>
           <NotFoundScreen />

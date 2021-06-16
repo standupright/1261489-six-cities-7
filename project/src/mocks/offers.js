@@ -18,7 +18,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 1,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['img/room.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -52,7 +52,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 2,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['img/room.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -63,7 +63,7 @@ const offers = [
     maxAdults: 4,
     previewImage: 'img/apartment-02.jpg',
     price: 80,
-    rating: 4.1,
+    rating: 1,
     title: 'Wood and stone place',
     type: 'Private room',
   },
@@ -86,7 +86,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 3,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -120,7 +120,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 4,
-    images: ['img/1.png', 'img/2.png'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
