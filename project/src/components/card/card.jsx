@@ -2,9 +2,9 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import {AppRoute} from '../../const';
+import {AppRoute,OfferInfo} from '../../const';
 
-function Card ({hotel,setActiveCard}) {
+function Card ({hotel,setActiveCard,cardTypeClass,cardImgWidth,cardImgHeight}) {
   const {
     id,
     previewImage,
@@ -14,28 +14,30 @@ function Card ({hotel,setActiveCard}) {
     type,
     rating} = hotel;
 
+  const citiesClass = OfferInfo.cardTypeClass.cities;
   const ratingStars = `${Math.round(rating) / 5 * 100}%`;
   return (
-    <article className="cities__place-card place-card"
+    <article className={`${cardTypeClass}__place-card place-card`}
       onMouseEnter={() => setActiveCard(hotel)}
+      onMouseOut={()=> setActiveCard({})}
     >
-      {isPremium &&
+      {isPremium && cardTypeClass === citiesClass &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${cardTypeClass}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
             src={previewImage}
-            width="260"
-            height="200"
+            width={cardImgWidth}
+            height={cardImgHeight}
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${cardTypeClass}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">
@@ -73,7 +75,14 @@ function Card ({hotel,setActiveCard}) {
 
 export default Card;
 
+Card.defaultProps = {
+  setActiveCard: () => {},
+};
+
 Card.propTypes = {
   hotel: PropTypes.shape(offersPropShape).isRequired,
   setActiveCard: PropTypes.func,
+  cardTypeClass: PropTypes.string.isRequired,
+  cardImgWidth: PropTypes.number.isRequired,
+  cardImgHeight: PropTypes.number.isRequired,
 };

@@ -9,6 +9,7 @@ import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import offersPropShape from '../../prop-validation/offers.prop';
 
+
 function App (props) {
   const {numberOffers, offers} = props;
   return (
@@ -38,5 +39,5 @@ export default App;
 
 App.propTypes = {
   numberOffers: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf (offersPropShape),
+  offers: PropTypes.arrayOf (offersPropShape).isRequired,
 };

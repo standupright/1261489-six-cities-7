@@ -18,7 +18,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 1,
-    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/room.jpg', 'img/studio-01.jpg','img/studio-photos.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -52,7 +52,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 2,
-    images: ['img/room.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/room.jpg', 'img/studio-01.jpg','img/studio-photos.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -86,7 +86,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 3,
-    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/room.jpg', 'img/studio-01.jpg','img/studio-photos.jpg'],
     isFavorite: false,
     isPremium: false,
     location: {
@@ -120,7 +120,7 @@ const offers = [
       nameHost: 'Angelina',
     },
     id: 4,
-    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/room.jpg', 'img/studio-01.jpg','img/studio-photos.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
@@ -153,8 +153,8 @@ const offers = [
       isPro: true,
       nameHost: 'Angelina',
     },
-    id: 1,
-    images: ['img/room.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg'],
+    id: 5,
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/room.jpg', 'img/studio-01.jpg','img/studio-photos.jpg'],
     isFavorite: false,
     isPremium: true,
     location: {
