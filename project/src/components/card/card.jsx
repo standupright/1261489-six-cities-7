@@ -1,25 +1,43 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
+import offersPropShape from '../../prop-validation/offers.prop';
+import {AppRoute,OfferInfo,RATING_MAX} from '../../const';
 
-function Card ({hotel}) {
-  const {title,price,type} = hotel;
+function Card ({hotel,setActiveCard,cardTypeClass,cardImgWidth,cardImgHeight}) {
+  const {
+    id,
+    previewImage,
+    isPremium,
+    price,
+    title,
+    type,
+    rating} = hotel;
+
+  const citiesClass = OfferInfo.cardTypeClass.cities;
+  const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
   return (
-    <article className="cities__place-card place-card">
-      <div className="place-card__mark">
-        <span>Premium</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+    <article className={`${cardTypeClass}__place-card place-card`}
+      onMouseEnter={() => setActiveCard(hotel)}
+      onMouseOut={()=> setActiveCard({})}
+    >
+      {isPremium && cardTypeClass === citiesClass &&
+        <div className="place-card__mark">
+          <span>Premium</span>
+        </div>}
+
+      <div className={`${cardTypeClass}__image-wrapper place-card__image-wrapper`}>
         <a href="#">
           <img
             className="place-card__image"
-            src="img/apartment-01.jpg"
-            width="260"
-            height="200"
+            src={previewImage}
+            width={cardImgWidth}
+            height={cardImgHeight}
             alt="Place image"
           />
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${cardTypeClass}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">
@@ -38,14 +56,14 @@ function Card ({hotel}) {
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: '80%'}} />
+            <span style={{width: ratingStars}} />
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">
+          <Link to={`${AppRoute.OFFER}/${id}`}>
             {title}
-          </a>
+          </Link>
         </h2>
         <p className="place-card__type">
           {type}
@@ -57,12 +75,14 @@ function Card ({hotel}) {
 
 export default Card;
 
+Card.defaultProps = {
+  setActiveCard: () => {},
+};
+
 Card.propTypes = {
-  hotel: PropTypes.objectOf (
-    PropTypes.shape ({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-      price: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-    })).isRequired,
+  hotel: PropTypes.shape(offersPropShape).isRequired,
+  setActiveCard: PropTypes.func,
+  cardTypeClass: PropTypes.string.isRequired,
+  cardImgWidth: PropTypes.number.isRequired,
+  cardImgHeight: PropTypes.number.isRequired,
 };

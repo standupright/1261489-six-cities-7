@@ -7,23 +7,32 @@ import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
 import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
+import offersPropShape from '../../prop-validation/offers.prop';
+import reviewsPropShape from '../../prop-validation/reviews.prop';
 
 function App (props) {
-  const {numberPlaces, places} = props;
+  const {numberOffers, offers,reviews} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
-          <Main numberPlaces={numberPlaces} places={places} />
+          <Main numberOffers={numberOffers} offers={offers} />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <LoginScreen />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesScreen />
+          <FavoritesScreen offers={offers} />
         </Route>
-        <Route exact path={AppRoute.ROOM}>
-          <RoomScreen />
+        <Route exact path={AppRoute.ROOM}
+          render={ (params) => (
+            <div>
+              {params.match.params.id < offers.length
+                ? <RoomScreen  offers={offers} reviews={reviews}/>
+                : <NotFoundScreen />}
+            </div>
+          )}
+        >
         </Route>
         <Route>
           <NotFoundScreen />
@@ -36,10 +45,7 @@ function App (props) {
 export default App;
 
 App.propTypes = {
-  numberPlaces: PropTypes.number.isRequired,
-  places: PropTypes.arrayOf (
-    PropTypes.shape ({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-    })).isRequired,
+  numberOffers: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
 };

@@ -1,9 +1,10 @@
 import React from 'react';
-import Card from '../card/card';
 import PropTypes from 'prop-types';
+import offersPropShape from '../../prop-validation/offers.prop';
+import CardList from '../cards-list/cards-list';
 
 function Main (props) {
-  const {places} = props;
+  const {numberOffers,offers} = props;
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -72,11 +73,9 @@ function Main (props) {
                 <li className="places__option" tabIndex="0">Top rated first</li>
               </ul>
             </form>
-            <div className="cities__places-list places__list tabs__content">
 
-              {places.map((hotel) => <Card key={hotel.id} hotel={hotel} />)}
+            <CardList numberOffers={numberOffers} offers={offers}/>
 
-            </div>
           </section>
           <div className="cities__right-section">
             <section className="cities__map map" />
@@ -86,14 +85,9 @@ function Main (props) {
     </main>
   );
 }
-
 Main.propTypes = {
-  //numberPlaces: PropTypes.number.isRequired,
-  places: PropTypes.arrayOf (
-    PropTypes.shape ({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
-    })).isRequired,
+  numberOffers: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf (offersPropShape),
 };
 
 export default Main;
