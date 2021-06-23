@@ -22,3 +22,7 @@ export const OfferInfo = {
   },
   offerTypes: ['Apartment','Private room','House','Hotel'],
 };
+
+export const RATING_MAX = 0.05;
+
+export const STARS_QUANTITY = 5;

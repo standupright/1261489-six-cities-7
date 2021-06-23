@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import {AppRoute,OfferInfo} from '../../const';
+import {AppRoute,OfferInfo,RATING_MAX} from '../../const';
 
 function Card ({hotel,setActiveCard,cardTypeClass,cardImgWidth,cardImgHeight}) {
   const {
@@ -15,7 +15,7 @@ function Card ({hotel,setActiveCard,cardTypeClass,cardImgWidth,cardImgHeight}) {
     rating} = hotel;
 
   const citiesClass = OfferInfo.cardTypeClass.cities;
-  const ratingStars = `${Math.round(rating) / 5 * 100}%`;
+  const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
   return (
     <article className={`${cardTypeClass}__place-card place-card`}
       onMouseEnter={() => setActiveCard(hotel)}

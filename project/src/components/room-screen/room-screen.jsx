@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
+import reviewsPropShape from '../../prop-validation/reviews.prop';
 import Reviews from '../reviews/reviews';
 import {useParams} from 'react-router';
 
 function RoomScreen (props) {
-  const {offers} = props;
+  const {offers,reviews} = props;
   const cardNumber = useParams ().id;
   const room = offers[cardNumber - 1];
 
@@ -112,7 +113,7 @@ function RoomScreen (props) {
               </p>
             </div>
           </div>
-          <Reviews />
+          <Reviews reviews={reviews}/>
         </div>
       </div>
       <section className="property__map map" />
@@ -123,5 +124,6 @@ function RoomScreen (props) {
 export default RoomScreen;
 
 RoomScreen.propTypes = {
-  offers: PropTypes.arrayOf (offersPropShape),
+  offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
 };

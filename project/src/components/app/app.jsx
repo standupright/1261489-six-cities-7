@@ -8,9 +8,10 @@ import FavoritesScreen from '../favorites-screen/favorites-screen';
 import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import offersPropShape from '../../prop-validation/offers.prop';
+import reviewsPropShape from '../../prop-validation/reviews.prop';
 
 function App (props) {
-  const {numberOffers, offers} = props;
+  const {numberOffers, offers,reviews} = props;
   return (
     <BrowserRouter>
       <Switch>
@@ -27,7 +28,7 @@ function App (props) {
           render={ (params) => (
             <div>
               {params.match.params.id < offers.length
-                ? <RoomScreen  offers={offers}/>
+                ? <RoomScreen  offers={offers} reviews={reviews}/>
                 : <NotFoundScreen />}
             </div>
           )}
@@ -45,5 +46,6 @@ export default App;
 
 App.propTypes = {
   numberOffers: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf (offersPropShape).isRequired,
+  offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
 };
