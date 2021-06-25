@@ -12,12 +12,10 @@ function FavoritesScreen (props) {
 
   const cities = {};
 
-  for (let i = 0; i < offers.length; i++) {
-    const nameCity = offers[i].city.nameLocation;
-    cities[`${nameCity}`] = [];
-  }
-
-  offers.map((offer) => cities[`${offer.city.nameLocation}`].push(offer));
+  offers
+    .map((offer)=> cities[`${offer.city.nameLocation}`] = []);
+  offers
+    .map((offer) => cities[`${offer.city.nameLocation}`].push(offer));
 
   return (
     <section className="favorites">
