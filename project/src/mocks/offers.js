@@ -30,7 +30,7 @@ const offers = [
     previewImage: 'img/apartment-01.jpg',
     price: 120,
     rating: 4.8,
-    title: 'Beautiful &amp; luxurious apartment at great location',
+    title: 'Beautiful & luxurious apartment at great location',
     type: 'Apartment',
   },
   {
@@ -166,7 +166,7 @@ const offers = [
     previewImage: 'img/apartment-01.jpg',
     price: 120,
     rating: 4.8,
-    title: 'Beautiful &amp; luxurious apartment at great location',
+    title: 'Beautiful & luxurious apartment at great location',
     type: 'Apartment',
   },
 ];

@@ -39,7 +39,7 @@ function Reviews (props) {
               <p className="reviews__text">
                 {comment.comment}
               </p>
-              <time className="reviews__time" dateTime="2019-04-24">
+              <time className="reviews__time" dateTime={comment.date}>
                 {comment.date}
               </time>
             </div>

@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import {AppRoute,OfferInfo,RATING_MAX} from '../../const';
+import {OfferInfo,RATING_MAX} from '../../const';
 
 function Card ({hotel,onCardHover,cardTypeClass,cardImgWidth,cardImgHeight}) {
   const {
@@ -61,7 +61,7 @@ function Card ({hotel,onCardHover,cardTypeClass,cardImgWidth,cardImgHeight}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`${AppRoute.OFFER}/${id}`}>
+          <Link to={`offer/${id}`}>
             {title}
           </Link>
         </h2>

@@ -7,6 +7,7 @@ import Reviews from '../reviews/reviews';
 function RoomScreen (props) {
   const {offers,reviews,cardNumber} = props;
   const room = offers[cardNumber - 1];
+  const rating = `${Math.round (room.rating) / 5 * 100}%`;
 
   return (
     <section className="property">
@@ -47,7 +48,7 @@ function RoomScreen (props) {
           </div>
           <div className="property__rating rating">
             <div className="property__stars rating__stars">
-              <span style={{width: `${Math.round (room.rating) / 5 * 100}%`}} />
+              <span style={{width: rating}} />
               <span className="visually-hidden">Rating</span>
             </div>
             <span className="property__rating-value rating__value">
@@ -106,9 +107,6 @@ function RoomScreen (props) {
               <p className="property__text">
                 {room.host.description}
               </p>
-              <p className="property__text">
-                An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
-              </p>
             </div>
           </div>
           <Reviews reviews={reviews}/>
@@ -124,5 +122,5 @@ export default RoomScreen;
 RoomScreen.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
-  cardNumber: PropTypes.string.isRequired
+  cardNumber: PropTypes.string.isRequired,
 };
