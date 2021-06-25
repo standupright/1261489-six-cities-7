@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import {AppRoute,OfferInfo,RATING_MAX} from '../../const';
 
-function Card ({hotel,setActiveCard,cardTypeClass,cardImgWidth,cardImgHeight}) {
+function Card ({hotel,onCardHover,cardTypeClass,cardImgWidth,cardImgHeight}) {
   const {
     id,
     previewImage,
@@ -18,8 +18,8 @@ function Card ({hotel,setActiveCard,cardTypeClass,cardImgWidth,cardImgHeight}) {
   const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
   return (
     <article className={`${cardTypeClass}__place-card place-card`}
-      onMouseEnter={() => setActiveCard(hotel)}
-      onMouseOut={()=> setActiveCard({})}
+      onMouseEnter={() => onCardHover(hotel)}
+      onMouseLeave={()=> onCardHover({})}
     >
       {isPremium && cardTypeClass === citiesClass &&
         <div className="place-card__mark">
@@ -76,12 +76,12 @@ function Card ({hotel,setActiveCard,cardTypeClass,cardImgWidth,cardImgHeight}) {
 export default Card;
 
 Card.defaultProps = {
-  setActiveCard: () => {},
+  onCardHover: () => {},
 };
 
 Card.propTypes = {
   hotel: PropTypes.shape(offersPropShape).isRequired,
-  setActiveCard: PropTypes.func,
+  onCardHover: PropTypes.func,
   cardTypeClass: PropTypes.string.isRequired,
   cardImgWidth: PropTypes.number.isRequired,
   cardImgHeight: PropTypes.number.isRequired,

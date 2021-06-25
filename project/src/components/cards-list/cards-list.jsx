@@ -15,7 +15,7 @@ function CardsList (props) {
     <div className="cities__places-list places__list tabs__content">
       {offers
         .map ((hotel) =>
-          <Card key={`${city}-${hotel.id}`} hotel={hotel} setActiveCard={setActiveCard} cardTypeClass={city} cardImgWidth={cardImgWidth} cardImgHeight={cardImgHeight}/>)
+          <Card key={`${city}-${hotel.id}`} hotel={hotel} onCardHover={setActiveCard} cardTypeClass={city} cardImgWidth={cardImgWidth} cardImgHeight={cardImgHeight}/>)
         .slice (0, numberOffers)}
     </div>
   );
