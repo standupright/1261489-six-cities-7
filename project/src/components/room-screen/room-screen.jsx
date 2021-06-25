@@ -3,11 +3,9 @@ import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 import Reviews from '../reviews/reviews';
-import {useParams} from 'react-router';
 
 function RoomScreen (props) {
-  const {offers,reviews} = props;
-  const cardNumber = useParams ().id;
+  const {offers,reviews,cardNumber} = props;
   const room = offers[cardNumber - 1];
 
   return (
@@ -126,4 +124,5 @@ export default RoomScreen;
 RoomScreen.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
+  cardNumber: PropTypes.string.isRequired
 };

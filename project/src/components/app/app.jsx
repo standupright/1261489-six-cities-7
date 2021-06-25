@@ -28,7 +28,7 @@ function App (props) {
           render={ (params) => (
             <div>
               {params.match.params.id < offers.length
-                ? <RoomScreen  offers={offers} reviews={reviews}/>
+                ? <RoomScreen cardNumber={params.match.params.id}  offers={offers} reviews={reviews}/>
                 : <NotFoundScreen />}
             </div>
           )}
