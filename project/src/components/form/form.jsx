@@ -9,7 +9,7 @@ function ReviewForm (props) {
 
   const  handleChange = (evt) => {
     const {name, value} = evt.target;
-    setReviewData({[name]: value});
+    setReviewData({...reviewData, [name]: value});
   };
 
   const handleSubmit = (evt) => {

@@ -10,12 +10,14 @@ function FavoritesScreen (props) {
   const cardImgWidth = OfferInfo.cardImgWidth.favorite;
   const cardImgHeight = OfferInfo.cardImgHeight.favorite;
 
-  const cities = {};
-
-  offers
-    .map((offer)=> cities[`${offer.city.nameLocation}`] = []);
-  offers
-    .map((offer) => cities[`${offer.city.nameLocation}`].push(offer));
+  const cities = offers.reduce((acc,offer) => {
+    const city = offer.city.nameLocation;
+    if (!acc[city]) {
+      acc[city] = [];
+    }
+    acc[city].push(offer);
+    return acc;
+  }, {});
 
   return (
     <section className="favorites">

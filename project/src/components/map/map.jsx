@@ -3,7 +3,7 @@ import leaflet from 'leaflet';
 import React, {useRef,useEffect} from 'react';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import useMap from '../../hooks/useMap';
+import useMap from '../../hooks/use-map';
 import {
   DEFAULT_CITY,
   URL_MARKER_DEAFULT,
@@ -29,6 +29,8 @@ function Map (props) {
 
   useEffect(() => {
     if (map) {
+      const layerGroup = leaflet.layerGroup().addTo(map);
+      layerGroup.clearLayers();
       offers
         .slice(0,numberOffers)
         .forEach((point) => {
@@ -41,7 +43,7 @@ function Map (props) {
                 ? currentCustomIcon
                 : defaultCustomIcon,
             })
-            .addTo(map);
+            .addTo(layerGroup);
         });
     }
   }, [map, offers, selectedPoint]);

@@ -37,8 +37,8 @@ const offers = [
     bedrooms: 2,
     city: {
       location: {
-        latitude: 52.3909553943508,
-        longitude: 4.929309666406198,
+        latitude: 52.369553943508,
+        longitude: 4.95309666406198,
         zoom: 10,
       },
       nameLocation: 'Amsterdam',
@@ -91,7 +91,7 @@ const offers = [
     isPremium: false,
     location: {
       latitude: 52.35534938496378,
-      longitude: 4.673557537499948,
+      longitude: 4.973557537499948,
       zoom: 8,
     },
     maxAdults: 4,
