@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import CardList from '../cards-list/cards-list';
+import Map from '../map/map';
 
 function Main (props) {
+  const [selectedPoint, setSelectedPoint] = useState({});
   const {numberOffers,offers} = props;
+
+  const onCardHover = (card) => setSelectedPoint(card);
+
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -74,20 +79,31 @@ function Main (props) {
               </ul>
             </form>
 
-            <CardList numberOffers={numberOffers} offers={offers}/>
+            <CardList
+              numberOffers={numberOffers}
+              offers={offers}
+              onCardHover={onCardHover}
+            />
 
           </section>
           <div className="cities__right-section">
-            <section className="cities__map map" />
+            <section className="cities__map map">
+              <Map
+                numberOffers={numberOffers}
+                offers={offers}
+                selectedPoint={selectedPoint}
+              />
+            </section>
           </div>
         </div>
       </div>
     </main>
   );
 }
+
 Main.propTypes = {
   numberOffers: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf (offersPropShape),
+  offers: PropTypes.arrayOf (offersPropShape).isRequired,
 };
 
 export default Main;

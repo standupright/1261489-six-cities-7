@@ -25,3 +25,13 @@ export const OfferInfo = {
 export const RATING_MAX = 0.05;
 
 export const STARS_QUANTITY = 5;
+
+export const DEFAULT_CITY ={
+  lat: 52.38333,
+  lng: 4.9,
+  zoom: 12,
+};
+
+export const URL_MARKER_DEAFULT = 'img/pin.svg';
+
+export const URL_MARKER_CURRENT = 'img/pin-active.svg';
