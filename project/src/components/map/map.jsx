@@ -28,9 +28,9 @@ function Map (props) {
   });
 
   useEffect(() => {
+    const layerGroup = leaflet.layerGroup();
     if (map) {
-      const layerGroup = leaflet.layerGroup().addTo(map);
-      layerGroup.clearLayers();
+      layerGroup.addTo(map);
       offers
         .slice(0,numberOffers)
         .forEach((point) => {
@@ -46,6 +46,7 @@ function Map (props) {
             .addTo(layerGroup);
         });
     }
+    return () => layerGroup.clearLayers();
   }, [map, offers, selectedPoint]);
 
   return (
