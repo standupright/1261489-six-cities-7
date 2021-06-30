@@ -59,6 +59,9 @@ function Map (props) {
   );
 }
 
+Map.defaultProps = {
+  selectedPoint: {},
+};
 
 Map.propTypes = {
   numberOffers: PropTypes.number.isRequired,

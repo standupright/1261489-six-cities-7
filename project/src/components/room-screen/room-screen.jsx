@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 import Reviews from '../reviews/reviews';
+import Map from '../map/map';
+import {NEARBY_OFFERS} from '../../const';
 
 function RoomScreen (props) {
   const {offers,reviews,cardNumber} = props;
@@ -112,7 +114,9 @@ function RoomScreen (props) {
           <Reviews reviews={reviews}/>
         </div>
       </div>
-      <section className="property__map map" />
+      <section className="property__map map">
+        <Map numberOffers={NEARBY_OFFERS} offers={offers}/>
+      </section>
     </section>
   );
 }

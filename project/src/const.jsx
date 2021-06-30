@@ -35,3 +35,5 @@ export const DEFAULT_CITY ={
 export const URL_MARKER_DEAFULT = 'img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+
+export const NEARBY_OFFERS = 3;
