@@ -4,7 +4,14 @@ import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import {OfferInfo,RATING_MAX} from '../../const';
 
-function Card ({hotel,onCardHover,cardTypeClass,cardImgWidth,cardImgHeight}) {
+function Card (props) {
+  const {
+    hotel,
+    onCardHover,
+    cardTypeClass,
+    cardImgWidth,
+    cardImgHeight} = props;
+
   const {
     id,
     previewImage,

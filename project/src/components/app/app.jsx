@@ -9,6 +9,8 @@ import RoomScreen from '../room-screen/room-screen';
 import NotFoundScreen from '../not-found-screen/not-found-screen';
 import offersPropShape from '../../prop-validation/offers.prop';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
+import Header from '../header/header';
+import Footer from '../footer/footer';
 
 function App (props) {
   const {numberOffers, offers,reviews} = props;
@@ -16,13 +18,17 @@ function App (props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
+          <Header />
           <Main numberOffers={numberOffers} offers={offers} />
+          <Footer />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <LoginScreen />
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
+          <Header />
           <FavoritesScreen offers={offers} />
+          <Footer />
         </Route>
         <Route exact path={AppRoute.ROOM}
           render={ (params) => (

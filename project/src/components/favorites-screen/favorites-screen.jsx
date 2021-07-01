@@ -20,28 +20,38 @@ function FavoritesScreen (props) {
   }, {});
 
   return (
-    <section className="favorites">
-      <h1 className="favorites__title">Saved listing</h1>
-      <ul className="favorites__list">
-        {Object.keys(cities)
-          .map( (nameCity)=> (
-            <li key={nameCity} className="favorites__locations-items">
-              <div className="favorites__locations locations locations--current">
-                <div className="locations__item">
-                  <a className="locations__item-link" href="#">
-                    <span>{nameCity}</span>
-                  </a>
-                </div>
-              </div>
-              <div className="favorites__places">
-                {cities[`${nameCity}`]
-                  .map ((hotel) =>
-                    <Card key={`${hotel.city.nameLocation + favorite + hotel.id}`} hotel={hotel} cardTypeClass={favorite} cardImgWidth={cardImgWidth} cardImgHeight={cardImgHeight}/>)}
-              </div>
-            </li>
-          ))}
-      </ul>
-    </section>
+    <main className="page__main page__main--favorites">
+      <div className="page__favorites-container container"> 
+        <section className="favorites">
+          <h1 className="favorites__title">Saved listing</h1>
+          <ul className="favorites__list">
+            {Object.keys(cities)
+              .map( (nameCity)=> (
+                <li key={nameCity} className="favorites__locations-items">
+                  <div className="favorites__locations locations locations--current">
+                    <div className="locations__item">
+                      <a className="locations__item-link" href="#">
+                        <span>{nameCity}</span>
+                      </a>
+                    </div>
+                  </div>
+                  <div className="favorites__places">
+                    {cities[`${nameCity}`]
+                      .map ((hotel) => (
+                        <Card
+                          key={`${hotel.city.nameLocation + favorite + hotel.id}`}
+                          hotel={hotel}
+                          cardTypeClass={favorite}
+                          cardImgWidth={cardImgWidth}
+                          cardImgHeight={cardImgHeight}
+                        />))}
+                  </div>
+                </li>
+              ))}
+          </ul>
+        </section>
+      </div>
+    </main>
   );
 }
 
