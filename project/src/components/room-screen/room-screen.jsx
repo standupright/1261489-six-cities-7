@@ -15,12 +15,13 @@ function RoomScreen (props) {
       <Header />
       <Room
         offers={offers}
+        nearOffers={offers}
         reviews={reviews}
         cardNumber={cardNumber}
         numberOffers={NEARBY_OFFERS}
       />
       <NearPlaces
-        offers={offers}
+        nearOffers={offers}
         numberOffers={NEARBY_OFFERS}
       />
     </div>

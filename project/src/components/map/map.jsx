@@ -11,7 +11,7 @@ import {
 } from '../../const';
 
 function Map (props) {
-  const {numberOffers, offers, selectedPoint} = props;
+  const {numberOffers, offers, currentOffer, selectedPoint} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef,DEFAULT_CITY);
 
@@ -27,25 +27,49 @@ function Map (props) {
     iconAnchor: [15, 30],
   });
 
+  const addMarkersToLayer = (layerGroup,points) => {
+    points.slice (0, numberOffers).forEach ( (point) => {
+      leaflet
+        .marker (
+          {
+            lat: point.location.latitude,
+            lng: point.location.longitude,
+          },
+          {
+            icon: point.id === selectedPoint.id
+              ? currentCustomIcon
+              : defaultCustomIcon,
+          },
+        )
+        .addTo (layerGroup);
+    });
+  };
+
+  const addCurrentMarkerToLayer = (layerGroup, point) => {
+    leaflet
+      .marker (
+        {
+          lat: point.location.latitude,
+          lng: point.location.longitude,
+        },
+        {
+          icon: currentCustomIcon,
+        },
+      )
+      .addTo (layerGroup);
+  };
+
   useEffect(() => {
     const layerGroup = leaflet.layerGroup();
     if (map) {
-      layerGroup.addTo(map);
-      offers
-        .slice(0,numberOffers)
-        .forEach((point) => {
-          leaflet
-            .marker({
-              lat: point.location.latitude,
-              lng: point.location.longitude,
-            }, {
-              icon: (point.id === selectedPoint.id)
-                ? currentCustomIcon
-                : defaultCustomIcon,
-            })
-            .addTo(layerGroup);
-        });
+      layerGroup.addTo (map);
+      addMarkersToLayer(layerGroup,offers);
+
+      if (Object.keys(currentOffer).length !== 0) {
+        addCurrentMarkerToLayer(layerGroup,currentOffer);
+      }
     }
+
     return () => layerGroup.clearLayers();
   }, [map, offers, selectedPoint]);
 
@@ -60,12 +84,14 @@ function Map (props) {
 }
 
 Map.defaultProps = {
+  currentOffer: {},
   selectedPoint: {},
 };
 
 Map.propTypes = {
   numberOffers: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  currentOffer: PropTypes.shape(offersPropShape).isRequired,
   selectedPoint: PropTypes.shape(offersPropShape).isRequired,
 };
 
