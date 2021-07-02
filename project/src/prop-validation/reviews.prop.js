@@ -11,7 +11,7 @@ const reviewsPropShape = PropTypes.shape ({
     isPro: PropTypes.bool.isRequired,
     name: PropTypes.string.isRequired,
   }),
-});
+}).isRequired;
 
 export default reviewsPropShape;
 

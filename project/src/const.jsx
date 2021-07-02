@@ -10,14 +10,17 @@ export const OfferInfo = {
   cardTypeClass: {
     cities: 'cities',
     favorite: 'favorites',
+    nearPlaces: 'near-places',
   },
   cardImgWidth: {
     cities:  260,
     favorite: 150,
+    nearPlaces: 260,
   },
   cardImgHeight: {
     cities:  260,
     favorite: 110,
+    nearPlaces: 200,
   },
   offerTypes: ['Apartment','Private room','House','Hotel'],
 };
@@ -35,3 +38,5 @@ export const DEFAULT_CITY ={
 export const URL_MARKER_DEAFULT = 'img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+
+export const NEARBY_OFFERS = 3;
