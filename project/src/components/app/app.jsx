@@ -13,13 +13,15 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 
 function App (props) {
+
+
   const {numberOffers, offers,reviews} = props;
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Header />
-          <Main numberOffers={numberOffers} offers={offers} />
+          <Main numberOffers={numberOffers} offers={offers}/>
           <Footer />
         </Route>
         <Route exact path={AppRoute.LOGIN}>

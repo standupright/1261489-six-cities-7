@@ -6,9 +6,8 @@ import Map from '../map/map';
 
 function Main (props) {
   const [selectedPoint, setSelectedPoint] = useState({});
-  const {numberOffers,offers} = props;
-
   const onCardHover = (card) => setSelectedPoint(card);
+  const {numberOffers,offers} = props;
 
   return (
     <main className="page__main page__main--index">
@@ -103,7 +102,7 @@ function Main (props) {
 
 Main.propTypes = {
   numberOffers: PropTypes.number.isRequired,
-  offers: PropTypes.arrayOf (offersPropShape).isRequired,
+  offers: PropTypes.arrayOf(offersPropShape).isRequired,
 };
 
 export default Main;
