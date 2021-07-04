@@ -8,6 +8,7 @@ function Main (props) {
   const [selectedPoint, setSelectedPoint] = useState({});
   const onCardHover = (card) => setSelectedPoint(card);
   const {numberOffers,offers} = props;
+  offers.slice(0,numberOffers);
 
   return (
     <main className="page__main page__main--index">
@@ -88,7 +89,6 @@ function Main (props) {
           <div className="cities__right-section">
             <section className="cities__map map">
               <Map
-                numberOffers={numberOffers}
                 offers={offers}
                 selectedPoint={selectedPoint}
               />
