@@ -8,7 +8,7 @@ function Main (props) {
   const [selectedPoint, setSelectedPoint] = useState({});
   const onCardHover = (card) => setSelectedPoint(card);
   const {numberOffers,offers} = props;
-  offers.slice(0,numberOffers);
+  const limitedOffers = offers.slice(0,numberOffers);
 
   return (
     <main className="page__main page__main--index">
@@ -80,8 +80,7 @@ function Main (props) {
             </form>
 
             <CardList
-              numberOffers={numberOffers}
-              offers={offers}
+              offers={limitedOffers}
               onCardHover={onCardHover}
             />
 
@@ -89,7 +88,7 @@ function Main (props) {
           <div className="cities__right-section">
             <section className="cities__map map">
               <Map
-                offers={offers}
+                offers={limitedOffers}
                 selectedPoint={selectedPoint}
               />
             </section>
