@@ -11,12 +11,12 @@ const reducer = (state = initialState, action) => {
     case ActionType.CHANGE_CITY:
       return {
         ...state,
-        city: state.city,
+        city: action.payload,
       };
     case ActionType.ADD_OFFERS:
       return {
         ...state,
-        offers: state.offers,
+        offers: action.payload,
       };
     default:
       return state;

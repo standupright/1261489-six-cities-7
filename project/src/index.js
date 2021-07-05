@@ -8,8 +8,6 @@ import reviews from './mocks/reviews';
 import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
 
-const NUMBER_OFFERS = 4;
-
 const store = createStore(
   reducer,
   composeWithDevTools(),
@@ -19,7 +17,6 @@ ReactDOM.render (
   <React.StrictMode>
     <Provider store={store}>
       <App
-        numberOffers={NUMBER_OFFERS}
         offers={offers}
         reviews={reviews}
       />
