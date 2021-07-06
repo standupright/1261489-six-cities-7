@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import {SortingTypes} from '../../const';
+import PropTypes, { string } from 'prop-types';
 
 function Sorting (props) {
-  const {sortType, onSortingChange} = props;
+  const {sortType, onSortingChange,sortingTypes} = props;
   const [visible, setVisible] = useState(false);
 
   return (
@@ -21,16 +20,16 @@ function Sorting (props) {
       </span>
       <ul className="places__options places__options--custom places__options--opened">
         { visible &&
-          Object.keys(SortingTypes).map((keyName) => (
+          Object.keys(sortingTypes).map((keyName) => (
             <li key={keyName}
-              className={`places__option places__option ${keyName === sortType ? 'places__option--active' : ''}`}
+              className={`places__option places__option ${sortingTypes[keyName] === sortType ? 'places__option--active' : ''}`}
               tabIndex="0"
               onClick={() => {
-                onSortingChange(keyName);
+                onSortingChange(sortingTypes[keyName]);
                 setVisible(false);
               }}
             >
-              {keyName}
+              {sortingTypes[keyName]}
             </li>
           ))}
       </ul>
@@ -45,6 +44,7 @@ Sorting.defaultProps = {
 Sorting.propTypes = {
   sortType: PropTypes.string.isRequired,
   onSortingChange: PropTypes.func.isRequired,
+  sortingTypes: PropTypes.objectOf(string).isRequired,
 };
 
 
