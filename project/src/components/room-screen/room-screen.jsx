@@ -9,19 +9,19 @@ import NearPlaces from '../near-places/near-places';
 
 function RoomScreen (props) {
   const {offers,reviews,cardNumber} = props;
-
+  const room = offers[cardNumber - 1];
+  const limitedOffers = offers.slice(0,NEARBY_OFFERS);
   return (
     <div className="page">
       <Header />
       <Room
-        offers={offers}
-        nearOffers={offers}
+        room={room}
+        nearOffers={limitedOffers}
         reviews={reviews}
         cardNumber={cardNumber}
-        numberOffers={NEARBY_OFFERS}
       />
       <NearPlaces
-        nearOffers={offers}
+        nearOffers={limitedOffers}
         numberOffers={NEARBY_OFFERS}
       />
     </div>

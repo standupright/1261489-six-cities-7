@@ -11,7 +11,7 @@ import {
 } from '../../const';
 
 function Map (props) {
-  const {numberOffers, offers, currentOffer, selectedPoint} = props;
+  const {offers, selectedPoint} = props;
   const mapRef = useRef(null);
   const map = useMap(mapRef,DEFAULT_CITY);
 
@@ -28,7 +28,7 @@ function Map (props) {
   });
 
   const addMarkersToLayer = (layerGroup,points) => {
-    points.slice (0, numberOffers).forEach ( (point) => {
+    points.forEach ( (point) => {
       leaflet
         .marker (
           {
@@ -45,29 +45,11 @@ function Map (props) {
     });
   };
 
-  const addCurrentMarkerToLayer = (layerGroup, point) => {
-    leaflet
-      .marker (
-        {
-          lat: point.location.latitude,
-          lng: point.location.longitude,
-        },
-        {
-          icon: currentCustomIcon,
-        },
-      )
-      .addTo (layerGroup);
-  };
-
   useEffect(() => {
     const layerGroup = leaflet.layerGroup();
     if (map) {
       layerGroup.addTo (map);
       addMarkersToLayer(layerGroup,offers);
-
-      if (Object.keys(currentOffer).length !== 0) {
-        addCurrentMarkerToLayer(layerGroup,currentOffer);
-      }
     }
 
     return () => layerGroup.clearLayers();
@@ -89,9 +71,7 @@ Map.defaultProps = {
 };
 
 Map.propTypes = {
-  numberOffers: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
-  currentOffer: PropTypes.shape(offersPropShape).isRequired,
   selectedPoint: PropTypes.shape(offersPropShape).isRequired,
 };
 

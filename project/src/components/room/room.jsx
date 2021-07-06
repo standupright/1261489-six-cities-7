@@ -6,10 +6,9 @@ import offersPropShape from '../../prop-validation/offers.prop';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 
 function Room (props) {
-  const {offers, nearOffers, reviews,cardNumber,numberOffers} = props;
-  const room = offers[cardNumber - 1];
+  const {room, nearOffers, reviews,cardNumber} = props;
   const rating = `${Math.round (room.rating) / 5 * 100}%`;
-
+  nearOffers.push(room);
   return (
     <section className="property">
       <div className="property__gallery-container container">
@@ -114,7 +113,7 @@ function Room (props) {
         </div>
       </div>
       <section className="property__map map">
-        <Map numberOffers={numberOffers} offers={nearOffers} currentOffer={room}/>
+        <Map offers={nearOffers} selectedPoint={room}/>
       </section>
     </section>
   );
@@ -123,9 +122,8 @@ function Room (props) {
 export default Room;
 
 Room.propTypes = {
-  offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  room: PropTypes.shape(offersPropShape).isRequired,
   nearOffers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
   cardNumber: PropTypes.string.isRequired,
-  numberOffers: PropTypes.number.isRequired,
 };

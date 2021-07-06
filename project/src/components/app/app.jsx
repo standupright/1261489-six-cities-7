@@ -13,13 +13,14 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 
 function App (props) {
-  const {numberOffers, offers,reviews} = props;
+  const {offers,reviews} = props;
+
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Header />
-          <Main numberOffers={numberOffers} offers={offers} />
+          <Main />
           <Footer />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -51,7 +52,6 @@ function App (props) {
 export default App;
 
 App.propTypes = {
-  numberOffers: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
 };

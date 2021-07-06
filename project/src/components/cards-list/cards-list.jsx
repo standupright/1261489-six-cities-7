@@ -5,7 +5,7 @@ import offersPropShape from '../../prop-validation/offers.prop';
 import {OfferInfo} from '../../const';
 
 function CardsList (props) {
-  const {numberOffers, offers, onCardHover} = props;
+  const {offers, onCardHover} = props;
   const city = OfferInfo.cardTypeClass.cities;
   const cardImgWidth = OfferInfo.cardImgWidth.cities;
   const cardImgHeight = OfferInfo.cardImgHeight.cities;
@@ -13,7 +13,6 @@ function CardsList (props) {
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers
-        .slice (0, numberOffers)
         .map ((hotel) => (
           <Card
             key={`${city}-${hotel.id}`}
@@ -34,7 +33,6 @@ CardsList.defaultProps = {
 };
 
 CardsList.propTypes = {
-  numberOffers: PropTypes.number.isRequired,
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   onCardHover: PropTypes.func,
 };

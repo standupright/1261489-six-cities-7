@@ -6,6 +6,15 @@ export const AppRoute = {
   DEV_ROOM: '/dev-artist',
 };
 
+export const cities = [
+  'Paris',
+  'Cologne',
+  'Brussels',
+  'Amsterdam',
+  'Hamburg',
+  'Dusseldorf',
+];
+
 export const OfferInfo = {
   cardTypeClass: {
     cities: 'cities',
@@ -39,4 +48,5 @@ export const URL_MARKER_DEAFULT = 'img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
+export const NUMBER_OFFERS = 4;
 export const NEARBY_OFFERS = 3;
