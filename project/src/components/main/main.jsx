@@ -5,15 +5,16 @@ import offersPropShape from '../../prop-validation/offers.prop';
 import CardList from '../cards-list/cards-list';
 import Map from '../map/map';
 import {connect} from 'react-redux';
-import {NUMBER_OFFERS} from '../../const';
+import {ActionCreator} from '../../store/action';
+import offersList from '../../mocks/offers';
 
 function Main (props) {
   const [selectedPoint, setSelectedPoint] = useState({});
   const onCardHover = (card) => setSelectedPoint(card);
-  const {offers,city} = props;
-
-  const limitedOffers = offers.slice(0,NUMBER_OFFERS);
-
+  const {city,offers,addOffers} = props;
+  // Затычка для добавления offers из моков
+  addOffers(offersList);
+  const filteredOffers = offers.filter((offer)=> offer.city.nameLocation === city);
   return (
     <main className="page__main page__main--index">
       <h1 className="visually-hidden">Cities</h1>
@@ -24,7 +25,7 @@ function Main (props) {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offers.length} places to stay in {city}</b>
+            <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
             <form className="places__sorting" action="#" method="get">
               <span className="places__sorting-caption">Sort by</span>
               <span className="places__sorting-type" tabIndex="0">
@@ -51,7 +52,7 @@ function Main (props) {
             </form>
 
             <CardList
-              offers={limitedOffers}
+              offers={filteredOffers}
               onCardHover={onCardHover}
             />
 
@@ -59,7 +60,7 @@ function Main (props) {
           <div className="cities__right-section">
             <section className="cities__map map">
               <Map
-                offers={limitedOffers}
+                offers={filteredOffers}
                 selectedPoint={selectedPoint}
               />
             </section>
@@ -73,6 +74,7 @@ function Main (props) {
 Main.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  addOffers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -80,5 +82,11 @@ const mapStateToProps = (state) => ({
   offers: state.offers,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  addOffers(offersData) {
+    dispatch(ActionCreator.addOffers(offersData));
+  },
+});
+
 export {Main};
-export default connect(mapStateToProps)(Main);
+export default connect(mapStateToProps,mapDispatchToProps)(Main);

@@ -1,4 +1,4 @@
-const offers = [
+const offersList = [
   {
     bedrooms: 3,
     city: {
@@ -7,7 +7,7 @@ const offers = [
         longitude: 4.85309666406198,
         zoom: 10,
       },
-      nameLocation: 'Hambrug',
+      nameLocation: 'Paris',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -41,7 +41,7 @@ const offers = [
         longitude: 4.95309666406198,
         zoom: 10,
       },
-      nameLocation: 'Amsterdam',
+      nameLocation: 'Paris',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -75,7 +75,7 @@ const offers = [
         longitude: 4.895168,
         zoom: 10,
       },
-      nameLocation: 'Dusseldorf',
+      nameLocation: 'Brussels',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -109,7 +109,7 @@ const offers = [
         longitude: 4.895168,
         zoom: 10,
       },
-      nameLocation: 'Brusselle',
+      nameLocation: 'Brussels',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -143,7 +143,7 @@ const offers = [
         longitude: 4.85309666406198,
         zoom: 10,
       },
-      nameLocation: 'Hambrug',
+      nameLocation: 'Brussels',
     },
     description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
     goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
@@ -169,6 +169,40 @@ const offers = [
     title: 'Beautiful & luxurious apartment at great location',
     type: 'Apartment',
   },
+  {
+    bedrooms: 3,
+    city: {
+      location: {
+        latitude: 52.3909553943508,
+        longitude: 4.85309666406198,
+        zoom: 10,
+      },
+      nameLocation: 'Cologne',
+    },
+    description: 'A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.',
+    goods: ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
+    host: {
+      avatarUrl: 'img/avatar-angelina.jpg',
+      id: 6,
+      isPro: true,
+      nameHost: 'Angelina',
+    },
+    id: 6,
+    images: ['img/apartment-01.jpg', 'img/apartment-02.jpg','img/apartment-03.jpg','img/room.jpg', 'img/studio-01.jpg','img/studio-photos.jpg'],
+    isFavorite: false,
+    isPremium: true,
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
+      zoom: 8,
+    },
+    maxAdults: 4,
+    previewImage: 'img/apartment-01.jpg',
+    price: 120,
+    rating: 4.8,
+    title: 'Beautiful & luxurious apartment at great location',
+    type: 'Apartment',
+  },
 ];
 
-export default offers;
+export default offersList;
