@@ -48,5 +48,11 @@ export const URL_MARKER_DEAFULT = 'img/pin.svg';
 
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
-export const NUMBER_OFFERS = 4;
 export const NEARBY_OFFERS = 3;
+
+export const SortingTypes = {
+  TOP_RATED_FIRST: 'Top rated first',
+  POPULAR: 'Popular',
+  LOW_TO_HIGH: 'Price: low to high',
+  HIGHT_TO_LOW: 'Price: low to high',
+};

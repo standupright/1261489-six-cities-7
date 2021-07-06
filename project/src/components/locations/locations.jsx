@@ -11,7 +11,7 @@ function Locations (props) {
       <ul className="locations__list tabs__list">
         {cities.map ((cityName) => (
           <li key={cityName} className="locations__item">
-            <a 
+            <a
               className={`locations__item-link tabs__item ${cityName === city ? 'tabs__item--active' : ''}`} 
               href="#"
               onClick={()=>{changeCity(cityName)}}
