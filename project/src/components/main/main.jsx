@@ -5,15 +5,11 @@ import offersPropShape from '../../prop-validation/offers.prop';
 import CardList from '../cards-list/cards-list';
 import Map from '../map/map';
 import {connect} from 'react-redux';
-import {ActionCreator} from '../../store/action';
-import offersList from '../../mocks/offers';
 
 function Main (props) {
   const [selectedPoint, setSelectedPoint] = useState({});
   const onCardHover = (card) => setSelectedPoint(card);
-  const {city,offers,addOffers} = props;
-  // Затычка для добавления offers из моков
-  addOffers(offersList);
+  const {city,offers} = props;
   const filteredOffers = offers.filter((offer)=> offer.city.nameLocation === city);
   return (
     <main className="page__main page__main--index">
@@ -74,7 +70,6 @@ function Main (props) {
 Main.propTypes = {
   city: PropTypes.string.isRequired,
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
-  addOffers: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -82,11 +77,5 @@ const mapStateToProps = (state) => ({
   offers: state.offers,
 });
 
-const mapDispatchToProps = (dispatch) => ({
-  addOffers(offersData) {
-    dispatch(ActionCreator.addOffers(offersData));
-  },
-});
-
 export {Main};
-export default connect(mapStateToProps,mapDispatchToProps)(Main);
+export default connect(mapStateToProps)(Main);

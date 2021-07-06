@@ -7,11 +7,14 @@ import offers from './mocks/offers';
 import reviews from './mocks/reviews';
 import {reducer} from './store/reducer';
 import {composeWithDevTools} from 'redux-devtools-extension';
+import {ActionCreator} from './store/action';
 
 const store = createStore(
   reducer,
   composeWithDevTools(),
 );
+
+store.dispatch(ActionCreator.addOffers(offers));
 
 ReactDOM.render (
   <React.StrictMode>
