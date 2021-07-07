@@ -50,9 +50,9 @@ export const URL_MARKER_CURRENT = 'img/pin-active.svg';
 
 export const NEARBY_OFFERS = 3;
 
-export const SortingTypes = {
+export const SortingType = {
   TOP_RATED_FIRST: 'Top rated first',
   POPULAR: 'Popular',
   LOW_TO_HIGH: 'Price: low to high',
-  HIGHT_TO_LOW: 'Price: low to high',
+  HIGHT_TO_LOW: 'Price: high to low',
 };

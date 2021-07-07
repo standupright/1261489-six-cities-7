@@ -6,24 +6,24 @@ import CardList from '../cards-list/cards-list';
 import Map from '../map/map';
 import {connect} from 'react-redux';
 import Sorting from '../sorting/sorting';
-import {SortingTypes} from '../../const';
+import {SortingType} from '../../const';
 
 function Main (props) {
   const [selectedPoint, setSelectedPoint] = useState({});
-  const [sortType, setSortType] = useState(SortingTypes.POPULAR);
+  const [sortType, setSortType] = useState(SortingType.POPULAR);
   const onCardHover = (card) => setSelectedPoint(card);
   const {city,offers} = props;
-  const offersList = offers.filter((offer)=> offer.city.nameLocation === city);
+  const offersByCity = offers.filter((offer)=> offer.city.nameLocation === city);
 
   switch (sortType) {
-    case SortingTypes.LOW_TO_HIGH:
-      offersList.sort((a, b) => a.price - b.price);
+    case SortingType.LOW_TO_HIGH:
+      offersByCity.sort((a, b) => a.price - b.price);
       break;
-    case SortingTypes.HIGH_TO_LOW:
-      offersList.sort((a, b) => b.price - a.price);
+    case SortingType.HIGH_TO_LOW:
+      offersByCity.sort((a, b) => b.price - a.price);
       break;
-    case SortingTypes.TOP_RATED:
-      offersList.sort((a, b) => b.rating - a.rating);
+    case SortingType.TOP_RATED:
+      offersByCity.sort((a, b) => b.rating - a.rating);
       break;
     default:
       break;
@@ -39,15 +39,15 @@ function Main (props) {
         <div className="cities__places-container container">
           <section className="cities__places places">
             <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersList.length} places to stay in {city}</b>
+            <b className="places__found">{offersByCity.length} places to stay in {city}</b>
             <Sorting
-              sortType={sortType}
+              currentType={sortType}
               onSortingChange={setSortType}
-              sortingTypes={SortingTypes}
+              sortingTypes={SortingType}
             />
 
             <CardList
-              offers={offersList}
+              offers={offersByCity}
               onCardHover={onCardHover}
             />
 
@@ -55,7 +55,7 @@ function Main (props) {
           <div className="cities__right-section">
             <section className="cities__map map">
               <Map
-                offers={offersList}
+                offers={offersByCity}
                 selectedPoint={selectedPoint}
               />
             </section>
