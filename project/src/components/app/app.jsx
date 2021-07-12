@@ -1,7 +1,9 @@
 import React from 'react';
 import Main from '../main/main';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import browserHistory from '../../browser-history';
+import PrivateRoute from '../private-route/private-route';
 import {AppRoute} from '../../const';
 import LoginScreen from '../login-screen/login-screen';
 import FavoritesScreen from '../favorites-screen/favorites-screen';
@@ -10,11 +12,12 @@ import NotFoundScreen from '../not-found-screen/not-found-screen';
 import offersPropShape from '../../prop-validation/offers.prop';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 
+
 function App (props) {
   const {offers,reviews} = props;
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.ROOT}>
           <Main />
@@ -22,9 +25,11 @@ function App (props) {
         <Route exact path={AppRoute.LOGIN}>
           <LoginScreen />
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesScreen offers={offers} />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={()=><FavoritesScreen offers={offers} />}
+        />
         <Route exact path={AppRoute.ROOM}
           render={ (params) => (
             <div>

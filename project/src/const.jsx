@@ -81,7 +81,7 @@ export const SortingType = {
   HIGHT_TO_LOW: 'Price: high to low',
 };
 
-export const AuthorizationStatus = {
+export const AuthStatus = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
