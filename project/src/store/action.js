@@ -1,5 +1,6 @@
 export const ActionType = {
   CHANGE_CITY: 'main/changeCity',
+  LOAD_COMMENTS: 'data/loadComments',
   LOAD_OFFERS: 'data/loadOffers',
   REDIRECT_TO_ROUTE: 'main/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
@@ -17,5 +18,9 @@ export const ActionCreator = {
   loadOffers: (offersData) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offersData,
+  }),
+  loadComments: (commentsData) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: commentsData,
   }),
 };
