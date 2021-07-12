@@ -80,7 +80,7 @@ Map.defaultProps = {
 Map.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   selectedPoint: PropTypes.shape(offersPropShape).isRequired,
-  currentCity: PropTypes.string,
+  currentCity: PropTypes.string.isRequired,
 };
 
 export default Map;
