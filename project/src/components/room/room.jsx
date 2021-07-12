@@ -119,11 +119,11 @@ function Room (props) {
   );
 }
 
-export default Room;
-
 Room.propTypes = {
   room: PropTypes.shape(offersPropShape).isRequired,
   nearOffers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
   cardNumber: PropTypes.string.isRequired,
 };
+
+export default Room;

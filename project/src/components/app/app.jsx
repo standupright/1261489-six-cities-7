@@ -43,9 +43,9 @@ function App (props) {
   );
 }
 
-export default App;
-
 App.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
 };
+
+export default App;

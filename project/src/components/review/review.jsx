@@ -36,8 +36,8 @@ function Review(props) {
   );
 }
 
-export default Review;
-
 Review.propTypes = {
   review: PropTypes.shape(reviewsPropShape).isRequired,
 };
+
+export default Review;

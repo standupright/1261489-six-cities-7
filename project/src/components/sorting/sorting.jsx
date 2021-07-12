@@ -43,5 +43,4 @@ Sorting.propTypes = {
   sortingTypes: PropTypes.objectOf(string).isRequired,
 };
 
-
 export default Sorting;

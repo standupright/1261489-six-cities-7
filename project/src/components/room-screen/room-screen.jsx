@@ -28,10 +28,10 @@ function RoomScreen (props) {
   );
 }
 
-export default RoomScreen;
-
 RoomScreen.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
   cardNumber: PropTypes.string.isRequired,
 };
+
+export default RoomScreen;
