@@ -1,4 +1,4 @@
-const OfferAdapter = {
+const OffersAdapter = {
   getOffer: (offer) => ({
     ...offer,
     previewImage: offer['preview_image'],
@@ -11,7 +11,7 @@ const OfferAdapter = {
       isPro: offer['host']['is_pro'],
     },
   }),
-  getOffers: (offers) => offers.map((offer) => OfferAdapter.getOffer(offer)),
+  getOffers: (offers) => offers.map((offer) => OffersAdapter.getOffer(offer)),
 };
 
-export default OfferAdapter;
+export default OffersAdapter;

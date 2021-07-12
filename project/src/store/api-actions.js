@@ -1,12 +1,12 @@
 import {ActionCreator} from './action';
 import {AuthorizationStatus, APIRoute} from '../const';
-import OfferAdapter from '../utils/offersAdapter';
+import OffersAdapter from '../utils/offersAdapter';
 
 export const getOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
     .then(({data}) => {
 
-      dispatch(ActionCreator.loadOffers(OfferAdapter.getOffers(data)));
+      dispatch(ActionCreator.loadOffers(OffersAdapter.getOffers(data)));
     })
 );
 
