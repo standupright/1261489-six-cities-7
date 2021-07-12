@@ -1,9 +1,11 @@
 export const AppRoute = {
+  ROOT: '/',
+  OFFERS: '/hotels',
+  COMMENTS: '/comments',
   LOGIN: '/login',
+  LOGOUT: '/logout',
   FAVORITES: '/favorites',
   ROOM: '/offer/:id?',
-  ROOT: '/',
-  DEV_ROOM: '/dev-artist',
 };
 
 export const CITIES = {
@@ -85,12 +87,4 @@ export const AuthStatus = {
   AUTH: 'AUTH',
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
-};
-
-export const APIRoute = {
-  OFFERS: '/hotels',
-  FAVORITE: '/favorite',
-  COMMENTS: '/comments',
-  LOGIN: '/login',
-  LOGOUT: '/logout',
 };
