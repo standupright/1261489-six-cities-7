@@ -6,75 +6,89 @@ import CardList from '../cards-list/cards-list';
 import Map from '../map/map';
 import {connect} from 'react-redux';
 import Sorting from '../sorting/sorting';
-import {SortingTypes} from '../../const';
+import {SortingType} from '../../const';
+import Spinner from '../spinner/spinner';
+import Header from '../header/header';
+import Footer from '../footer/footer';
 
 function Main (props) {
-  const [selectedPoint, setSelectedPoint] = useState({});
-  const [sortType, setSortType] = useState(SortingTypes.POPULAR);
-  const onCardHover = (card) => setSelectedPoint(card);
-  const {city,offers} = props;
-  const offersList = offers.filter((offer)=> offer.city.nameLocation === city);
+  const [selectedPoint, setSelectedPoint] = useState ({});
+  const [sortType, setSortType] = useState (SortingType.POPULAR);
+  const onCardHover = (card) => setSelectedPoint (card);
+  const {city, offers, isDataLoaded} = props;
+
+  const offersByCity = offers.filter (
+    (offer) => offer.city.name === city,
+  );
 
   switch (sortType) {
-    case SortingTypes.LOW_TO_HIGH:
-      offersList.sort((a, b) => a.price - b.price);
+    case SortingType.LOW_TO_HIGH:
+      offersByCity.sort ((a, b) => a.price - b.price);
       break;
-    case SortingTypes.HIGH_TO_LOW:
-      offersList.sort((a, b) => b.price - a.price);
+    case SortingType.HIGH_TO_LOW:
+      offersByCity.sort ((a, b) => b.price - a.price);
       break;
-    case SortingTypes.TOP_RATED:
-      offersList.sort((a, b) => b.rating - a.rating);
+    case SortingType.TOP_RATED:
+      offersByCity.sort ((a, b) => b.rating - a.rating);
       break;
     default:
       break;
   }
 
   return (
-    <main className="page__main page__main--index">
-      <h1 className="visually-hidden">Cities</h1>
-      <div className="tabs">
-        <Locations />
-      </div>
-      <div className="cities">
-        <div className="cities__places-container container">
-          <section className="cities__places places">
-            <h2 className="visually-hidden">Places</h2>
-            <b className="places__found">{offersList.length} places to stay in {city}</b>
-            <Sorting
-              sortType={sortType}
-              onSortingChange={setSortType}
-              sortingTypes={SortingTypes}
-            />
+    <div className="page page--gray page--main">
+      <Header />
+      {
+        isDataLoaded ? (
+          <main className="page__main page__main--index">
+            <h1 className="visually-hidden">Cities</h1>
+            <div className="tabs">
+              <Locations />
+            </div>
+            <div className="cities">
+              <div className="cities__places-container container">
+                <section className="cities__places places">
+                  <h2 className="visually-hidden">Places</h2>
+                  <b className="places__found">
+                    {offersByCity.length} places to stay in {city}
+                  </b>
+                  <Sorting
+                    currentType={sortType}
+                    onSortingChange={setSortType}
+                    sortingTypes={SortingType}
+                  />
 
-            <CardList
-              offers={offersList}
-              onCardHover={onCardHover}
-            />
+                  <CardList offers={offersByCity} onCardHover={onCardHover} />
 
-          </section>
-          <div className="cities__right-section">
-            <section className="cities__map map">
-              <Map
-                offers={offersList}
-                selectedPoint={selectedPoint}
-              />
-            </section>
-          </div>
-        </div>
-      </div>
-    </main>
+                </section>
+                <div className="cities__right-section">
+                  <section className="cities__map map">
+                    <Map currentCity={city} offers={offersByCity} selectedPoint={selectedPoint} />
+                  </section>
+                </div>
+              </div>
+            </div>
+          </main>
+        )
+          : <Spinner />
+      }
+
+      <Footer />
+    </div>
   );
 }
 
 Main.propTypes = {
   city: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  offers: PropTypes.arrayOf (offersPropShape).isRequired,
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
+  isDataLoaded: state.isDataLoaded,
 });
 
 export {Main};
-export default connect(mapStateToProps)(Main);
+export default connect (mapStateToProps) (Main);

@@ -1,5 +1,4 @@
 import PropTypes from 'prop-types';
-import {OfferInfo} from '../const';
 
 const location = PropTypes.shape({
   latitude: PropTypes.number.isRequired,
@@ -11,7 +10,7 @@ const offersPropShape = PropTypes.shape({
   bedrooms: PropTypes.number.isRequired,
   city: PropTypes.shape({
     location,
-    nameLocation: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
   description: PropTypes.string.isRequired,
   goods: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -19,7 +18,7 @@ const offersPropShape = PropTypes.shape({
     avatarUrl: PropTypes.string.isRequired,
     id: PropTypes.number.isRequired,
     isPro: PropTypes.bool.isRequired,
-    nameHost: PropTypes.string.isRequired,
+    name: PropTypes.string.isRequired,
   }).isRequired,
   id: PropTypes.number.isRequired,
   images: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
@@ -31,7 +30,7 @@ const offersPropShape = PropTypes.shape({
   price: PropTypes.number.isRequired,
   rating: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(OfferInfo.offerTypes).isRequired,
+  type: PropTypes.string.isRequired,
 }).isRequired;
 
 export default offersPropShape;
