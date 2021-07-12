@@ -96,7 +96,7 @@ function Room (props) {
                 />
               </div>
               <span className="property__user-name">
-                {room.host.nameHost}
+                {room.host.name}
               </span>
               {room.host.isPro &&
                 <span className="property__user-status">

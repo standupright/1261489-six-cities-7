@@ -5,15 +5,15 @@ import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import useMap from '../../hooks/use-map';
 import {
-  DEFAULT_CITY,
+  CITIES,
   URL_MARKER_DEAFULT,
   URL_MARKER_CURRENT
 } from '../../const';
 
 function Map (props) {
-  const {offers, selectedPoint} = props;
+  const {currentCity, offers, selectedPoint} = props;
   const mapRef = useRef(null);
-  const map = useMap(mapRef,DEFAULT_CITY);
+  const map = useMap(mapRef,CITIES[currentCity]);
 
   const defaultCustomIcon = leaflet.icon ({
     iconUrl: URL_MARKER_DEAFULT,
@@ -49,6 +49,13 @@ function Map (props) {
     const layerGroup = leaflet.layerGroup();
     if (map) {
       layerGroup.addTo (map);
+      map.flyTo(
+        [
+          CITIES[currentCity].latitude,
+          CITIES[currentCity].longitude,
+        ],
+        CITIES[currentCity].zoom,
+      );
       addMarkersToLayer(layerGroup,offers);
     }
 
@@ -73,6 +80,7 @@ Map.defaultProps = {
 Map.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   selectedPoint: PropTypes.shape(offersPropShape).isRequired,
+  currentCity: PropTypes.string,
 };
 
 export default Map;

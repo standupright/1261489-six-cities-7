@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 import Card from '../card/card';
 import offersPropShape from '../../prop-validation/offers.prop';
 import {OfferInfo} from '../../const';
+import Header from '../header/header';
+import Footer from '../footer/footer';
 
 function FavoritesScreen (props) {
   const {offers} = props;
@@ -10,23 +12,24 @@ function FavoritesScreen (props) {
   const cardImgWidth = OfferInfo.cardImgWidth.favorite;
   const cardImgHeight = OfferInfo.cardImgHeight.favorite;
 
-  const cities = offers.reduce((acc,offer) => {
-    const city = offer.city.nameLocation;
+  const cities = offers.reduce ((acc, offer) => {
+    const city = offer.city.name;
     if (!acc[city]) {
       acc[city] = [];
     }
-    acc[city].push(offer);
+    acc[city].push (offer);
     return acc;
   }, {});
 
   return (
-    <main className="page__main page__main--favorites">
-      <div className="page__favorites-container container"> 
-        <section className="favorites">
-          <h1 className="favorites__title">Saved listing</h1>
-          <ul className="favorites__list">
-            {Object.keys(cities)
-              .map( (nameCity)=> (
+    <div className="page">
+      <Header />
+      <main className="page__main page__main--favorites">
+        <div className="page__favorites-container container">
+          <section className="favorites">
+            <h1 className="favorites__title">Saved listing</h1>
+            <ul className="favorites__list">
+              {Object.keys (cities).map ((nameCity) => (
                 <li key={nameCity} className="favorites__locations-items">
                   <div className="favorites__locations locations locations--current">
                     <div className="locations__item">
@@ -36,27 +39,29 @@ function FavoritesScreen (props) {
                     </div>
                   </div>
                   <div className="favorites__places">
-                    {cities[`${nameCity}`]
-                      .map ((hotel) => (
-                        <Card
-                          key={`${hotel.city.nameLocation + favorite + hotel.id}`}
-                          hotel={hotel}
-                          cardTypeClass={favorite}
-                          cardImgWidth={cardImgWidth}
-                          cardImgHeight={cardImgHeight}
-                        />))}
+                    {cities[`${nameCity}`].map ((hotel) => (
+                      <Card
+                        key={`${hotel.city.name + favorite + hotel.id}`}
+                        hotel={hotel}
+                        cardTypeClass={favorite}
+                        cardImgWidth={cardImgWidth}
+                        cardImgHeight={cardImgHeight}
+                      />
+                    ))}
                   </div>
                 </li>
               ))}
-          </ul>
-        </section>
-      </div>
-    </main>
+            </ul>
+          </section>
+        </div>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
 FavoritesScreen.propTypes = {
-  offers: PropTypes.arrayOf(offersPropShape).isRequired,
+  offers: PropTypes.arrayOf (offersPropShape).isRequired,
 };
 
 export default FavoritesScreen;
