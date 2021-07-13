@@ -8,7 +8,7 @@ import userPropShape from '../../prop-validation/user.prop';
 
 function Header (props) {
   const {authorizationStatus,user,logoutUser} = props;
-  console.log(authorizationStatus);
+
   return (
     <header className="header">
       <div className="container">
