@@ -7,7 +7,7 @@ const userPropShape = PropTypes.shape ({
   isPro: PropTypes.bool.isRequired,
   name: PropTypes.string.isRequired,
   token: PropTypes.string.isRequired,
-}).isRequired;
+});
 
 export default userPropShape;
 

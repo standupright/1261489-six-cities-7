@@ -87,4 +87,5 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {Header};
-export default connect(mapDispatchToProps,mapStateToProps)(Header);
+export default connect(mapStateToProps,mapDispatchToProps)(Header);
+

@@ -32,10 +32,15 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: AuthStatus.NO_AUTH,
       };
-    case ActionType.SET_USER:
+    case ActionType.LOGIN:
       return {
         ...state,
         user: action.payload,
+      };
+    case ActionType.REQUIRED_AUTHORIZATION:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
       };
     default:
       return state;
