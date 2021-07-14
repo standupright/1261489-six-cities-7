@@ -1,7 +1,9 @@
 import {ActionCreator} from './action';
 import {AuthStatus, AppRoute} from '../const';
 import OffersAdapter from '../utils/offersAdapter';
+import CommentsAdapter from '../utils/commentsAdapter';
 import AuthInfoAdapter from '../utils/userAdapter';
+import {generatePath} from 'react-router-dom';
 
 export const getOffersList = () => (dispatch, _getState, api) => (
   api.get(AppRoute.OFFERS)
@@ -10,10 +12,10 @@ export const getOffersList = () => (dispatch, _getState, api) => (
     })
 );
 
-export const getCommentsList = () => (dispatch, _getState, api) => (
-  api.get(AppRoute.COMMENTS)
+export const getCommentsList= (id) => (dispatch, _getState, api) => (
+  api.get(generatePath(AppRoute.COMMENTS, {id}))
     .then(({data}) => {
-      dispatch(ActionCreator.loadComments(OffersAdapter.getOffers(data)));
+      dispatch(ActionCreator.loadComments(CommentsAdapter.getComments(data)));
     })
 );
 
