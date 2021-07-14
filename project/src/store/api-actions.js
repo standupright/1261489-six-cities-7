@@ -12,7 +12,7 @@ export const getOffersList = () => (dispatch, _getState, api) => (
     })
 );
 
-export const getCommentsList= (id) => (dispatch, _getState, api) => (
+export const getCommentsList = (id) => (dispatch, _getState, api) => (
   api.get(generatePath(AppRoute.COMMENTS, {id}))
     .then(({data}) => {
       dispatch(ActionCreator.loadComments(CommentsAdapter.getComments(data)));
@@ -20,7 +20,12 @@ export const getCommentsList= (id) => (dispatch, _getState, api) => (
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(AppRoute.LOGIN)
+  api.get(AppRoute.LOGIN, {
+    headers: {
+      'X-Token': `${localStorage.getItem('token')}`,
+    },
+  })
+    .then(({data}) => dispatch(ActionCreator.login(AuthInfoAdapter.getUserData(data))))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthStatus.AUTH)))
     .catch(() => {})
 );
@@ -29,8 +34,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
   api.post(AppRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
-      const userData = AuthInfoAdapter.getUserData(data);
-      dispatch(ActionCreator.login(userData));
+      dispatch(ActionCreator.login(AuthInfoAdapter.getUserData(data)));
     })
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthStatus.AUTH)))
     .then(() => dispatch(ActionCreator.redirectToRoute(AppRoute.ROOT)))

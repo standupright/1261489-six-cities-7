@@ -15,7 +15,6 @@ import reviewsPropShape from '../../prop-validation/reviews.prop';
 
 function App (props) {
   const {offers,reviews} = props;
-
   return (
     <BrowserRouter history={browserHistory}>
       <Switch>
