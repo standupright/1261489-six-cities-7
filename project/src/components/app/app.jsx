@@ -22,9 +22,11 @@ function App (props) {
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <LoginScreen />
-        </Route>
+        <Route
+          exact
+          path={AppRoute.LOGIN}
+          render={() => <LoginScreen />}
+        />
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}
