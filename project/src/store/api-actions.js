@@ -22,7 +22,7 @@ export const getCommentsList = (id) => (dispatch, _getState, api) => (
 export const checkAuth = () => (dispatch, _getState, api) => (
   api.get(AppRoute.LOGIN, {
     headers: {
-      'X-Token': `${localStorage.getItem('token')}`,
+      'X-Token': localStorage.getItem('token'),
     },
   })
     .then(({data}) => dispatch(ActionCreator.login(AuthInfoAdapter.getUserData(data))))
