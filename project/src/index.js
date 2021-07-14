@@ -11,11 +11,11 @@ import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import {createAPI} from './api';
 import {redirect} from './store/middlewares/redirect';
-import {AuthorizationStatus} from './const';
+import {AuthStatus} from './const';
 import {getOffersList, checkAuth} from './store/api-actions';
 
 const api = createAPI(
-  () => store.dispatch(ActionCreator.requireAuthorization(AuthorizationStatus.NO_AUTH)),
+  () => store.dispatch(ActionCreator.requireAuthorization(AuthStatus.NO_AUTH)),
 );
 
 const store = createStore(

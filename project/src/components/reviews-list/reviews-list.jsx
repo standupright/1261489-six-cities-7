@@ -15,8 +15,8 @@ function ReviewsList(props) {
   );
 }
 
-export default ReviewsList;
-
 ReviewsList.propTypes = {
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
 };
+
+export default ReviewsList;

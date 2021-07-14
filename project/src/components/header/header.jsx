@@ -1,8 +1,14 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const';
+import {connect} from 'react-redux';
+import {AppRoute, AuthStatus} from '../../const';
+import { logout } from '../../store/api-actions';
+import userPropShape from '../../prop-validation/user.prop';
 
 function Header (props) {
+  const {authorizationStatus,user,logoutUser} = props;
+
   return (
     <header className="header">
       <div className="container">
@@ -20,19 +26,41 @@ function Header (props) {
           </div>
           <nav className="header__nav">
             <ul className="header__nav-list">
-              <li className="header__nav-item user">
-                <a className="header__nav-link header__nav-link--profile" href="#">
-                  <div className="header__avatar-wrapper user__avatar-wrapper" />
-                  <span className="header__user-name user__name">
-                    Oliver.conner@gmail.com
-                  </span>
-                </a>
-              </li>
-              <li className="header__nav-item">
-                <a className="header__nav-link" href="#">
-                  <span className="header__signout">Sign out</span>
-                </a>
-              </li>
+              { authorizationStatus === AuthStatus.AUTH && user ? (
+                <React.Fragment>
+                  <li className="header__nav-item user">
+                    <Link className="header__nav-link header__nav-link--profile" to={AppRoute.FAVORITES}>
+                      <div className="header__avatar-wrapper user__avatar-wrapper">
+                        <img className="header__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt={user.name} />
+                      </div>
+                      <span className="header__user-name user__name">{user.email}</span>
+                    </Link>
+                  </li>
+                  <li className="header__nav-item">
+                    <span
+                      className="header__nav-link"
+                      style={{ cursor: 'pointer' }}
+                      onClick={(evt) => {
+                        evt.preventDefault();
+                        logoutUser();
+                      }}
+                    >
+                      <span className="header__signout">Sign out</span>
+                    </span>
+                  </li>
+                </React.Fragment>
+              ) : (
+                <li className="header__nav-item user">
+                  <Link
+                    className="header__nav-link header__nav-link--profile"
+                    to={AppRoute.LOGIN}
+                  >
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
+                    </div>
+                    <span className="header__login">Sign in</span>
+                  </Link>
+                </li>
+              )}
             </ul>
           </nav>
         </div>
@@ -41,4 +69,23 @@ function Header (props) {
   );
 }
 
-export default Header;
+Header.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  user: userPropShape,
+  logoutUser: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+  user: state.user,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  logoutUser() {
+    dispatch(logout());
+  },
+});
+
+export {Header};
+export default connect(mapStateToProps,mapDispatchToProps)(Header);
+

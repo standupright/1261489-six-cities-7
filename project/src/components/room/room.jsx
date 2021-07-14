@@ -113,13 +113,11 @@ function Room (props) {
         </div>
       </div>
       <section className="property__map map">
-        <Map offers={nearOffers} selectedPoint={room}/>
+        <Map currentCity={room.city.name} offers={nearOffers} selectedPoint={room}/>
       </section>
     </section>
   );
 }
-
-export default Room;
 
 Room.propTypes = {
   room: PropTypes.shape(offersPropShape).isRequired,
@@ -127,3 +125,5 @@ Room.propTypes = {
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
   cardNumber: PropTypes.string.isRequired,
 };
+
+export default Room;

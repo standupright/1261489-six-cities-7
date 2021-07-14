@@ -29,9 +29,9 @@ function NearPlaces (props) {
   );
 }
 
-export default NearPlaces;
-
 NearPlaces.propTypes = {
   nearOffers: PropTypes.arrayOf(offersPropShape).isRequired,
   numberOffers: PropTypes.number.isRequired,
 };
+
+export default NearPlaces;
