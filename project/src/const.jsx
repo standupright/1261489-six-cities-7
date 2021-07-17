@@ -1,11 +1,19 @@
 export const AppRoute = {
   ROOT: '/',
-  OFFERS: '/hotels',
-  COMMENTS: '/comments',
+  ROOM: '/offer/:id?',
+  FAVORITES: '/favorite',
+  LOGIN: '/login',
+  NOT_FOUND: '/404',
+};
+
+export const ApiRoute = {
   LOGIN: '/login',
   LOGOUT: '/logout',
-  FAVORITES: '/favorites',
-  ROOM: '/offer/:id?',
+  OFFERS: '/hotels',
+  OFFER: '/hotels/:id',
+  COMMENTS: '/comments/:id',
+  FAVORITE_STATUS: '/favorite/:id/:status',
+  NEARBY: '/hotels/:id/nearby',
 };
 
 export const CITIES = {

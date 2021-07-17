@@ -1,26 +1,35 @@
 import {ActionCreator} from './action';
-import {AuthStatus, AppRoute} from '../const';
+import {AuthStatus, AppRoute, ApiRoute} from '../const';
 import OffersAdapter from '../utils/offersAdapter';
 import CommentsAdapter from '../utils/commentsAdapter';
 import AuthInfoAdapter from '../utils/userAdapter';
 import {generatePath} from 'react-router-dom';
 
 export const getOffersList = () => (dispatch, _getState, api) => (
-  api.get(AppRoute.OFFERS)
+  api.get(ApiRoute.OFFERS)
     .then(({data}) => {
       dispatch(ActionCreator.loadOffers(OffersAdapter.getOffers(data)));
     })
 );
 
-export const getCommentsList = (id) => (dispatch, _getState, api) => (
-  api.get(generatePath(AppRoute.COMMENTS, {id}))
-    .then(({data}) => {
-      dispatch(ActionCreator.loadComments(CommentsAdapter.getComments(data)));
-    })
+export const getOffer = (id) => (dispatch, _getState, api) => (
+  Promise.all([
+    api.get(generatePath(ApiRoute.OFFER, { id })),
+    api.get(generatePath(ApiRoute.NEARBY, { id })),
+    api.get(generatePath(ApiRoute.COMMENTS, { id }))],
+  )
+    .then((values) =>
+      dispatch(ActionCreator.loadOffer({
+        id: Number(id),
+        offer: OffersAdapter.getOffer(values[0].data),
+        nearby: OffersAdapter.getOffers(values[1].data),
+        comments: CommentsAdapter.getComments(values[2].data),
+      })))
+    .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND)))
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(AppRoute.LOGIN, {
+  api.get(ApiRoute.LOGIN, {
     headers: {
       'X-Token': localStorage.getItem('token'),
     },
@@ -31,7 +40,7 @@ export const checkAuth = () => (dispatch, _getState, api) => (
 );
 
 export const login = ({login: email, password}) => (dispatch, _getState, api) => (
-  api.post(AppRoute.LOGIN, {email, password})
+  api.post(ApiRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
       dispatch(ActionCreator.login(AuthInfoAdapter.getUserData(data)));
@@ -41,7 +50,7 @@ export const login = ({login: email, password}) => (dispatch, _getState, api) =>
 );
 
 export const logout = () => (dispatch, _getState, api) => {
-  api.delete(AppRoute.LOGOUT)
+  api.delete(ApiRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(ActionCreator.logout()));
 };

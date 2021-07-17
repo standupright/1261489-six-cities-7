@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 import {RATING_MAX} from '../../const';
 
@@ -37,7 +36,7 @@ function Review(props) {
 }
 
 Review.propTypes = {
-  review: PropTypes.shape(reviewsPropShape).isRequired,
+  review: reviewsPropShape.isRequired,
 };
 
 export default Review;

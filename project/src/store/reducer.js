@@ -7,6 +7,12 @@ const initialState = {
   isDataLoaded: false,
   authorizationStatus: AuthStatus.UNKNOWN,
   user: null,
+  currentOfferData: {
+    id: null,
+    offer: null,
+    nearby: null,
+    comments: null,
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,10 +28,13 @@ const reducer = (state = initialState, action) => {
         offers: action.payload,
         isDataLoaded: true,
       };
-    case ActionType.LOAD_COMMENTS:
+    case ActionType.LOAD_OFFER_DATA:
       return {
         ...state,
-        comments: action.payload,
+        currentOfferData: {
+          ...state.currentOfferData,
+          ...action.payload,
+        },
       };
     case ActionType.LOGOUT:
       return {

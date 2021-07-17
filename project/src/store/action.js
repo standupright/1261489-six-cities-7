@@ -2,6 +2,7 @@ export const ActionType = {
   CHANGE_CITY: 'main/changeCity',
   LOAD_COMMENTS: 'data/loadComments',
   LOAD_OFFERS: 'data/loadOffers',
+  LOAD_OFFER_DATA: 'data/loadOffer',
   REDIRECT_TO_ROUTE: 'main/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGIN: 'user/login',
@@ -21,9 +22,9 @@ export const ActionCreator = {
     type: ActionType.LOAD_OFFERS,
     payload: offersData,
   }),
-  loadComments: (commentsData) => ({
-    type: ActionType.LOAD_COMMENTS,
-    payload: commentsData,
+  loadOffer: (currentOffer) => ({
+    type: ActionType.LOAD_OFFER_DATA,
+    payload: currentOffer,
   }),
   redirectToRoute: (url) => ({
     type: ActionType.REDIRECT_TO_ROUTE,

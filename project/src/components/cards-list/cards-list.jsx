@@ -26,8 +26,6 @@ function CardsList (props) {
   );
 }
 
-export default CardsList;
-
 CardsList.defaultProps = {
   onCardHover: () => {},
 };
@@ -36,3 +34,5 @@ CardsList.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   onCardHover: PropTypes.func,
 };
+
+export default CardsList;

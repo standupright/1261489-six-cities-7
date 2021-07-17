@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Reviews from '../reviews/reviews';
+import reviewsPropShape from '../../prop-validation/reviews.prop';
 import Map from '../map/map';
 import offersPropShape from '../../prop-validation/offers.prop';
-import reviewsPropShape from '../../prop-validation/reviews.prop';
 
 function Room (props) {
-  const {room, nearOffers, reviews,cardNumber} = props;
+  const {room, reviews,  nearOffers} = props;
   const rating = `${Math.round (room.rating) / 5 * 100}%`;
   nearOffers.push(room);
   return (
@@ -15,7 +15,7 @@ function Room (props) {
         <div className="property__gallery">
           {room.images.map ((imgSrc) => (
             <div
-              key={`${cardNumber}-${imgSrc}`}
+              key={imgSrc}
               className="property__image-wrapper"
             >
               <img
@@ -75,7 +75,7 @@ function Room (props) {
             <ul className="property__inside-list">
               {room.goods.map ((good) => (
                 <li
-                  key={`${cardNumber}-${good}`}
+                  key={good}
                   className="property__inside-item"
                 >
                   {good}
@@ -110,20 +110,20 @@ function Room (props) {
             </div>
           </div>
           <Reviews reviews={reviews}/>
+
         </div>
       </div>
       <section className="property__map map">
-        <Map currentCity={room.city.name} offers={nearOffers} selectedPoint={room}/>
+        <Map currentCity={room.city.name} offers={nearOffers} selectedPoint={room.id}/>
       </section>
     </section>
   );
 }
 
 Room.propTypes = {
-  room: PropTypes.shape(offersPropShape).isRequired,
+  room: offersPropShape.isRequired,
   nearOffers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
-  cardNumber: PropTypes.string.isRequired,
 };
 
 export default Room;
