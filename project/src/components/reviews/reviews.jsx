@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 import ReviewsList from '../reviews-list/reviews-list';
-import Form from '../form/form';
+import ReviewForm from '../review-form/review-form';
 
 function Reviews (props) {
   const {reviews} = props;
@@ -13,7 +13,7 @@ function Reviews (props) {
         Reviews &middot; <span className="reviews__amount">{reviews.length}</span>
       </h2>
       <ReviewsList reviews={reviews} />
-      <Form />
+      <ReviewForm />
     </section>
   );
 }

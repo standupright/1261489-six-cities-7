@@ -8,7 +8,7 @@ import offersPropShape from '../../prop-validation/offers.prop';
 function Room (props) {
   const {room, reviews,  nearOffers} = props;
   const rating = `${Math.round (room.rating) / 5 * 100}%`;
-  nearOffers.push(room);
+  const nearOffersForMap = [...nearOffers,room];
   return (
     <section className="property">
       <div className="property__gallery-container container">
@@ -114,7 +114,7 @@ function Room (props) {
         </div>
       </div>
       <section className="property__map map">
-        <Map currentCity={room.city.name} offers={nearOffers} selectedPoint={room.id}/>
+        <Map currentCity={room.city.name} offers={nearOffersForMap} selectedPoint={room.id}/>
       </section>
     </section>
   );

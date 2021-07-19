@@ -9,7 +9,7 @@ function NearPlaces (props) {
   const nearPlaces = OfferInfo.cardTypeClass.nearPlaces;
   const cardImgWidth = OfferInfo.cardImgWidth.nearPlaces;
   const cardImgHeight = OfferInfo.cardImgHeight.nearPlaces;
-  nearOffers.slice(0,3);
+
   return (
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
