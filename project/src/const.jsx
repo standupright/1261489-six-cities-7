@@ -96,3 +96,10 @@ export const AuthStatus = {
   NO_AUTH: 'NO_AUTH',
   UNKNOWN: 'UNKNOWN',
 };
+
+export const CommentValidation = {
+  MIN_RATING: 1,
+  MAX_RATING: 5,
+  MIN_LENGTH: 50,
+  MAX_LENGTH: 300,
+};

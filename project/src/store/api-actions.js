@@ -28,12 +28,20 @@ export const getOffer = (id) => (dispatch, _getState, api) => (
     .catch(() => dispatch(ActionCreator.redirectToRoute(AppRoute.NOT_FOUND)))
 );
 
+export const postComment = (id,reviewData) => (dispatch, _getState, api) => (
+  api.post(
+    generatePath(ApiRoute.COMMENTS, {id}),reviewData)
+    .then(({data}) => {
+      dispatch(ActionCreator.loadOffer({
+        comments: CommentsAdapter.getComments(data),
+      }));
+    })
+    .catch(() => {//Тут будет реализован bad request в след задании
+    })
+);
+
 export const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(ApiRoute.LOGIN, {
-    headers: {
-      'X-Token': localStorage.getItem('token'),
-    },
-  })
+  api.get(ApiRoute.LOGIN)
     .then(({data}) => dispatch(ActionCreator.login(AuthInfoAdapter.getUserData(data))))
     .then(() => dispatch(ActionCreator.requireAuthorization(AuthStatus.AUTH)))
     .catch(() => {})

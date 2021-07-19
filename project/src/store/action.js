@@ -3,6 +3,7 @@ export const ActionType = {
   LOAD_COMMENTS: 'data/loadComments',
   LOAD_OFFERS: 'data/loadOffers',
   LOAD_OFFER_DATA: 'data/loadOffer',
+  POST_REVIEW: 'data/postReview',
   REDIRECT_TO_ROUTE: 'main/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
   LOGIN: 'user/login',

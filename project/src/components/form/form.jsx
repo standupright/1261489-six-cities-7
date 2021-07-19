@@ -1,20 +1,47 @@
 import React, {useState} from 'react';
-import {STARS_QUANTITY} from '../../const';
+import PropTypes from 'prop-types';
+import {STARS_QUANTITY, CommentValidation, AuthStatus} from '../../const';
+import {connect} from 'react-redux';
+import {postComment} from '../../store/api-actions';
+import { useParams } from 'react-router-dom';
+
 
 function ReviewForm (props) {
   const [reviewData, setReviewData] = useState({
     rating: '0',
-    review: '',
+    comment: '',
   });
+  const {id} = useParams();
+
+  const {authorizationStatus,postReview} = props;
 
   const  handleChange = (evt) => {
     const {name, value} = evt.target;
     setReviewData({...reviewData, [name]: value});
   };
 
+  let isSubmitAvailable = false;
+
+  if (
+    reviewData.rating >= CommentValidation.MIN_RATING &&
+    reviewData.rating <= CommentValidation.MAX_RATING &&
+    reviewData.comment.length >= CommentValidation.MIN_LENGTH &&
+    reviewData.comment.length <= CommentValidation.MAX_LENGTH
+  ) {
+    isSubmitAvailable = true;
+  }
+
+  const resetForm = () => {
+    setReviewData({
+      rating: '0',
+      comment: '',
+    });
+  };
+
   const handleSubmit = (evt) => {
     //alert ('Форма отправлена');
     evt.preventDefault ();
+    postReview(id, reviewData).then(() => resetForm());
   };
 
   const createIdStars = () => {
@@ -25,7 +52,7 @@ function ReviewForm (props) {
     return idStars;
   };
 
-  return (
+  return ( authorizationStatus === AuthStatus.AUTH &&
     <form
       className="reviews__form form"
       action="#"
@@ -42,6 +69,7 @@ function ReviewForm (props) {
               className="form__rating-input visually-hidden"
               name="rating"
               value={idStar}
+              checked={idStar === Number(reviewData.rating)}
               id={`${idStar}-stars`}
               type="radio"
               onChange={handleChange}
@@ -60,7 +88,8 @@ function ReviewForm (props) {
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
-        name="review"
+        value={reviewData.comment}
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleChange}
       />
@@ -78,7 +107,7 @@ function ReviewForm (props) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled=""
+          disabled={isSubmitAvailable ? '' : 'disabled'}
         >
           Submit
         </button>
@@ -87,4 +116,20 @@ function ReviewForm (props) {
   );
 }
 
-export default ReviewForm;
+ReviewForm.propTypes = {
+  authorizationStatus: PropTypes.string.isRequired,
+  postReview: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  authorizationStatus: state.authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  postReview(id,postCommentData) {
+    return dispatch(postComment(id,postCommentData));
+  },
+});
+
+export { ReviewForm };
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
