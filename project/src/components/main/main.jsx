@@ -12,9 +12,9 @@ import Header from '../header/header';
 import Footer from '../footer/footer';
 
 function Main (props) {
-  const [selectedPoint, setSelectedPoint] = useState ({});
+  const [selectedPoint, setSelectedPoint] = useState (null);
   const [sortType, setSortType] = useState (SortingType.POPULAR);
-  const onCardHover = (card) => setSelectedPoint (card);
+  const onCardHover = (cardId) => setSelectedPoint (cardId);
   const {city, offers, isDataLoaded} = props;
 
   const offersByCity = offers.filter (

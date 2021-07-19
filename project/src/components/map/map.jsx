@@ -36,7 +36,7 @@ function Map (props) {
             lng: point.location.longitude,
           },
           {
-            icon: point.id === selectedPoint.id
+            icon: point.id === selectedPoint
               ? currentCustomIcon
               : defaultCustomIcon,
           },
@@ -72,14 +72,9 @@ function Map (props) {
   );
 }
 
-Map.defaultProps = {
-  currentOffer: {},
-  selectedPoint: {},
-};
-
 Map.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
-  selectedPoint: PropTypes.shape(offersPropShape).isRequired,
+  selectedPoint: PropTypes.number,
   currentCity: PropTypes.string.isRequired,
 };
 

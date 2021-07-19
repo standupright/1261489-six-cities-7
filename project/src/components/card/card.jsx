@@ -25,8 +25,8 @@ function Card (props) {
   const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
   return (
     <article className={`${cardTypeClass}__place-card place-card`}
-      onMouseEnter={() => onCardHover(hotel)}
-      onMouseLeave={()=> onCardHover({})}
+      onMouseEnter={() => onCardHover(id)}
+      onMouseLeave={()=> onCardHover(null)}
     >
       {isPremium && cardTypeClass === citiesClass &&
         <div className="place-card__mark">
@@ -80,16 +80,16 @@ function Card (props) {
   );
 }
 
-export default Card;
-
 Card.defaultProps = {
   onCardHover: () => {},
 };
 
 Card.propTypes = {
-  hotel: PropTypes.shape(offersPropShape).isRequired,
+  hotel: offersPropShape.isRequired,
   onCardHover: PropTypes.func,
   cardTypeClass: PropTypes.string.isRequired,
   cardImgWidth: PropTypes.number.isRequired,
   cardImgHeight: PropTypes.number.isRequired,
 };
+
+export default Card;
