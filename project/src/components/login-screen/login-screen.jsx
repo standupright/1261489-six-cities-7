@@ -1,24 +1,25 @@
 import React, {useRef} from 'react';
-import PropTypes from 'prop-types';
 import {Link, Redirect} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-actions';
 import {AppRoute, AuthStatus} from '../../const';
+import {getAuthorizationStatus} from '../../store/user/selector';
 
-function LoginScreen (props) {
+function LoginScreen () {
   const emailRef = useRef ();
   const passwordRef = useRef ();
+
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault ();
 
-    onSubmit ({
+    dispatch(login({
       login: emailRef.current.value,
       password: passwordRef.current.value,
-    });
+    }));
   };
-
-  const {authorizationStatus, onSubmit} = props;
 
   return (authorizationStatus === AuthStatus.AUTH
     ? (<Redirect to={AppRoute.ROOT} />)
@@ -112,20 +113,5 @@ function LoginScreen (props) {
   );
 }
 
-LoginScreen.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit (userAuthInfo) {
-    dispatch (login (userAuthInfo));
-  },
-});
-
 export {LoginScreen};
-export default connect (mapStateToProps, mapDispatchToProps) (LoginScreen);
+export default LoginScreen;

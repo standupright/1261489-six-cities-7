@@ -5,7 +5,7 @@ const initialState = {
   city: 'Paris',
 };
 
-const cities = () => createReducer(initialState, (builder) => {
+const cities = createReducer(initialState, (builder) => {
   builder.addCase(changeCity, (state, action) => {
     state.city = action.payload;
   });

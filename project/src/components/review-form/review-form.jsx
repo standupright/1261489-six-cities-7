@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
-import { STARS_QUANTITY, CommentValidation, AuthStatus } from '../../const';
-import { connect } from 'react-redux';
-import { postComment } from '../../store/api-actions';
-import { useParams } from 'react-router-dom';
+import {STARS_QUANTITY, CommentValidation, AuthStatus} from '../../const';
+import {useDispatch, useSelector} from 'react-redux';
+import {postComment} from '../../store/api-actions';
+import {useParams} from 'react-router-dom';
+import {getAuthorizationStatus} from '../../store/user/selector';
 
-function ReviewForm(props) {
+function ReviewForm() {
   const [reviewData, setReviewData] = useState({
     rating: '0',
     comment: '',
@@ -14,7 +14,8 @@ function ReviewForm(props) {
 
   const { id } = useParams();
 
-  const { authorizationStatus, postReview } = props;
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const dispatch = useDispatch();
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -45,7 +46,7 @@ function ReviewForm(props) {
     //alert ('Форма отправлена');
     evt.preventDefault();
     setFormAvailable(false);
-    postReview(id, reviewData)
+    dispatch(postComment(id, reviewData))
       .then(() => resetForm())
       .catch(() => setFormAvailable(true));
   };
@@ -122,20 +123,5 @@ function ReviewForm(props) {
   );
 }
 
-ReviewForm.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  postReview: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  authorizationStatus: state.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  postReview(id, postCommentData) {
-    return dispatch(postComment(id, postCommentData));
-  },
-});
-
 export { ReviewForm };
-export default connect(mapStateToProps, mapDispatchToProps)(ReviewForm);
+export default ReviewForm;

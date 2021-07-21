@@ -12,17 +12,14 @@ const initialState = {
   },
 };
 
-const offers = () => createReducer(initialState, (builder) => {
+const offers = createReducer(initialState, (builder) => {
   builder
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
       state.isDataLoaded = true;
     })
     .addCase(loadOffer, (state, action) => {
-      state.currentOfferData = {
-        ...state.currentOfferData,
-        ...action.payload,
-      };
+      state.currentOfferData = action.payload;
     });
 });
 

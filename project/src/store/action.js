@@ -30,7 +30,7 @@ export const loadOffers = createAction(ActionType.LOAD_OFFERS,
   }),
 );
 
-export const loadOffer = createAction(ActionType.LOAD_OFFER,
+export const loadOffer = createAction(ActionType.LOAD_OFFER_DATA,
   (currentOffer) => ({
     payload: currentOffer,
   }),

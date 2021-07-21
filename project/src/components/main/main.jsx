@@ -1,21 +1,24 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
 import Locations from '../locations/locations';
-import offersPropShape from '../../prop-validation/offers.prop';
 import CardList from '../cards-list/cards-list';
 import Map from '../map/map';
-import {connect} from 'react-redux';
 import Sorting from '../sorting/sorting';
 import {SortingType} from '../../const';
 import Spinner from '../spinner/spinner';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import {useSelector} from 'react-redux';
+import {getDataOffers, getIsDataLoaded} from '../../store/offers/selector';
+import {getCity} from '../../store/cities/selector';
 
-function Main (props) {
+function Main () {
   const [selectedPoint, setSelectedPoint] = useState (null);
   const [sortType, setSortType] = useState (SortingType.POPULAR);
   const onCardHover = (cardId) => setSelectedPoint (cardId);
-  const {city, offers, isDataLoaded} = props;
+
+  const city = useSelector(getCity);
+  const offers = useSelector(getDataOffers);
+  const isDataLoaded = useSelector(getIsDataLoaded);
 
   const offersByCity = offers.filter (
     (offer) => offer.city.name === city,
@@ -78,17 +81,5 @@ function Main (props) {
   );
 }
 
-Main.propTypes = {
-  city: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf (offersPropShape).isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  isDataLoaded: state.isDataLoaded,
-});
-
 export {Main};
-export default connect (mapStateToProps) (Main);
+export default Main;
