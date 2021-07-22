@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import Locations from '../locations/locations';
 import CardList from '../cards-list/cards-list';
 import Map from '../map/map';
@@ -8,7 +8,7 @@ import Spinner from '../spinner/spinner';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import {useSelector} from 'react-redux';
-import {getDataOffers, getIsDataLoaded} from '../../store/offers/selector';
+import {getfilteredOffers, getIsDataLoaded} from '../../store/offers/selector';
 import {getCity} from '../../store/cities/selector';
 
 function Main () {
@@ -17,26 +17,28 @@ function Main () {
   const onCardHover = (cardId) => setSelectedPoint (cardId);
 
   const city = useSelector(getCity);
-  const offers = useSelector(getDataOffers);
+  const filteredOffers = useSelector(getfilteredOffers);
   const isDataLoaded = useSelector(getIsDataLoaded);
 
-  const offersByCity = offers.filter (
-    (offer) => offer.city.name === city,
-  );
-
-  switch (sortType) {
-    case SortingType.LOW_TO_HIGH:
-      offersByCity.sort ((a, b) => a.price - b.price);
-      break;
-    case SortingType.HIGH_TO_LOW:
-      offersByCity.sort ((a, b) => b.price - a.price);
-      break;
-    case SortingType.TOP_RATED:
-      offersByCity.sort ((a, b) => b.rating - a.rating);
-      break;
-    default:
-      break;
-  }
+  const offersByCity = useMemo (
+    () => {
+      const sortedOffers = [...filteredOffers];
+      switch (sortType) {
+        case SortingType.LOW_TO_HIGH:
+          sortedOffers.sort ((a, b) => a.price - b.price);
+          break;
+        case SortingType.HIGH_TO_LOW:
+          sortedOffers.sort ((a, b) => b.price - a.price);
+          break;
+        case SortingType.TOP_RATED:
+          sortedOffers.sort ((a, b) => b.rating - a.rating);
+          break;
+        default:
+          break;
+      }
+      return sortedOffers;
+    },
+    [sortType, filteredOffers]);
 
   return (
     <div className="page page--gray page--main">

@@ -1,6 +1,7 @@
 import React from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {CITIES} from '../../const';
+import {changeCity} from '../../store/action';
 import {getCity} from '../../store/cities/selector';
 
 function Locations (props) {
