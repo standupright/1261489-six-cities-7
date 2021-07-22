@@ -43,4 +43,5 @@ Sorting.propTypes = {
   sortingTypes: PropTypes.objectOf(string).isRequired,
 };
 
-export default Sorting;
+export { Sorting };
+export default React.memo(Sorting);

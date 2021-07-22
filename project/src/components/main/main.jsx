@@ -1,39 +1,44 @@
-import React, {useState} from 'react';
-import PropTypes from 'prop-types';
+import React, {useMemo, useState} from 'react';
 import Locations from '../locations/locations';
-import offersPropShape from '../../prop-validation/offers.prop';
 import CardList from '../cards-list/cards-list';
 import Map from '../map/map';
-import {connect} from 'react-redux';
 import Sorting from '../sorting/sorting';
 import {SortingType} from '../../const';
 import Spinner from '../spinner/spinner';
 import Header from '../header/header';
 import Footer from '../footer/footer';
+import {useSelector} from 'react-redux';
+import {getfilteredOffers, getIsDataLoaded} from '../../store/offers/selector';
+import {getCity} from '../../store/cities/selector';
 
-function Main (props) {
+function Main () {
   const [selectedPoint, setSelectedPoint] = useState (null);
   const [sortType, setSortType] = useState (SortingType.POPULAR);
   const onCardHover = (cardId) => setSelectedPoint (cardId);
-  const {city, offers, isDataLoaded} = props;
 
-  const offersByCity = offers.filter (
-    (offer) => offer.city.name === city,
-  );
+  const city = useSelector(getCity);
+  const filteredOffers = useSelector(getfilteredOffers);
+  const isDataLoaded = useSelector(getIsDataLoaded);
 
-  switch (sortType) {
-    case SortingType.LOW_TO_HIGH:
-      offersByCity.sort ((a, b) => a.price - b.price);
-      break;
-    case SortingType.HIGH_TO_LOW:
-      offersByCity.sort ((a, b) => b.price - a.price);
-      break;
-    case SortingType.TOP_RATED:
-      offersByCity.sort ((a, b) => b.rating - a.rating);
-      break;
-    default:
-      break;
-  }
+  const offersByCity = useMemo (
+    () => {
+      const sortedOffers = [...filteredOffers];
+      switch (sortType) {
+        case SortingType.LOW_TO_HIGH:
+          sortedOffers.sort ((a, b) => a.price - b.price);
+          break;
+        case SortingType.HIGH_TO_LOW:
+          sortedOffers.sort ((a, b) => b.price - a.price);
+          break;
+        case SortingType.TOP_RATED:
+          sortedOffers.sort ((a, b) => b.rating - a.rating);
+          break;
+        default:
+          break;
+      }
+      return sortedOffers;
+    },
+    [sortType, filteredOffers]);
 
   return (
     <div className="page page--gray page--main">
@@ -78,17 +83,5 @@ function Main (props) {
   );
 }
 
-Main.propTypes = {
-  city: PropTypes.string.isRequired,
-  offers: PropTypes.arrayOf (offersPropShape).isRequired,
-  isDataLoaded: PropTypes.bool.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
-  isDataLoaded: state.isDataLoaded,
-});
-
 export {Main};
-export default connect (mapStateToProps) (Main);
+export default Main;

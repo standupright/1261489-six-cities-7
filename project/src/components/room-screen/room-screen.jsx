@@ -1,25 +1,24 @@
 import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import offersPropShape from '../../prop-validation/offers.prop';
-import { connect } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 import Room from '../room/room';
 import Header from '../header/header';
 import NearPlaces from '../near-places/near-places';
 import Spinner from '../spinner/spinner';
-import { getOffer } from '../../store/api-actions';
-import reviewsPropShape from '../../prop-validation/reviews.prop';
-import { useParams } from 'react-router-dom';
+import {getOffer} from '../../store/api-actions';
+import {useParams} from 'react-router-dom';
+import {getDataOffer} from '../../store/offers/selector';
 
-function RoomScreen(props) {
+function RoomScreen() {
   const { id } = useParams();
-  const { currentOfferData, getOfferData } = props;
+  const currentOfferData = useSelector(getDataOffer);
+  const dispatch = useDispatch();
   const { offer, nearby, comments } = currentOfferData;
 
   useEffect(() => {
     if (Number(id) !== currentOfferData.id) {
-      getOfferData(id);
+      dispatch(getOffer(id));
     }
-  }, [getOfferData, id, currentOfferData]);
+  }, [getOffer, id, currentOfferData]);
 
   return Number(id) === currentOfferData.id ? (
     <div className='page'>
@@ -32,25 +31,5 @@ function RoomScreen(props) {
   );
 }
 
-RoomScreen.propTypes = {
-  currentOfferData: PropTypes.shape({
-    id: PropTypes.number,
-    offer: offersPropShape,
-    nearby: PropTypes.arrayOf(offersPropShape),
-    comments: PropTypes.arrayOf(reviewsPropShape),
-  }).isRequired,
-  getOfferData: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (state) => ({
-  currentOfferData: state.currentOfferData,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  getOfferData(id) {
-    dispatch(getOffer(id));
-  },
-});
-
 export { RoomScreen };
-export default connect(mapStateToProps, mapDispatchToProps)(RoomScreen);
+export default RoomScreen;

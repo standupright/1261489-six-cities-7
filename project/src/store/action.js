@@ -1,3 +1,5 @@
+import { createAction } from '@reduxjs/toolkit';
+
 export const ActionType = {
   CHANGE_CITY: 'main/changeCity',
   LOAD_COMMENTS: 'data/loadComments',
@@ -10,32 +12,40 @@ export const ActionType = {
   LOGOUT: 'user/logout',
 };
 
-export const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
+export const changeCity = createAction(ActionType.CHANGE_CITY,
+  (city) => ({
     payload: city,
   }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTHORIZATION,
+);
+
+export const requireAuthorization = createAction(ActionType.REQUIRED_AUTHORIZATION,
+  (status) => ({
     payload: status,
   }),
-  loadOffers: (offersData) => ({
-    type: ActionType.LOAD_OFFERS,
+);
+
+export const loadOffers = createAction(ActionType.LOAD_OFFERS,
+  (offersData) => ({
     payload: offersData,
   }),
-  loadOffer: (currentOffer) => ({
-    type: ActionType.LOAD_OFFER_DATA,
+);
+
+export const loadOffer = createAction(ActionType.LOAD_OFFER_DATA,
+  (currentOffer) => ({
     payload: currentOffer,
   }),
-  redirectToRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
+);
+
+export const redirectToRoute = createAction(ActionType.REDIRECT_TO_ROUTE,
+  (url) => ({
     payload: url,
   }),
-  login: (user) => ({
-    type: ActionType.LOGIN,
+);
+
+export const login = createAction(ActionType.LOGIN,
+  (user) => ({
     payload: user,
   }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-};
+);
+
+export const logout = createAction(ActionType.LOGOUT);
