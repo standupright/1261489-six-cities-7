@@ -12,7 +12,8 @@ export const ApiRoute = {
   OFFERS: '/hotels',
   OFFER: '/hotels/:id',
   COMMENTS: '/comments/:id',
-  FAVORITE_STATUS: '/favorite/:id/:status',
+  FAVORITES: '/favorite',
+  FAVORITES_STATUS: '/favorite/:id/:status',
   NEARBY: '/hotels/:id/nearby',
 };
 

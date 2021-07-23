@@ -3,6 +3,8 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import {OfferInfo,RATING_MAX} from '../../const';
+import { useDispatch } from 'react-redux';
+import { postFavorite } from '../../store/api-actions';
 
 function Card (props) {
   const {
@@ -15,11 +17,21 @@ function Card (props) {
   const {
     id,
     previewImage,
+    isFavorite,
     isPremium,
     price,
     title,
     type,
     rating} = hotel;
+
+  const dispatch = useDispatch();
+
+  const handleFavoriteButtonClick = () => {
+    dispatch(postFavorite({
+      id,
+      status: isFavorite ? 0 : 1,
+    }));
+  };
 
   const citiesClass = OfferInfo.cardTypeClass.cities;
   const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
@@ -54,7 +66,11 @@ function Card (props) {
               &#47;&nbsp;night
             </span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''}  button`}
+            type="button"
+            onClick={handleFavoriteButtonClick}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -92,4 +108,5 @@ Card.propTypes = {
   cardImgHeight: PropTypes.number.isRequired,
 };
 
+export {Card};
 export default Card;

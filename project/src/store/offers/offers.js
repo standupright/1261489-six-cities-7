@@ -1,5 +1,5 @@
 import {createReducer} from '@reduxjs/toolkit';
-import {loadOffers,loadOffer} from '../action';
+import {loadOffers,loadOffer,updateOffer} from '../action';
 
 const initialState = {
   offers: [],
@@ -20,6 +20,12 @@ const offers = createReducer(initialState, (builder) => {
     })
     .addCase(loadOffer, (state, action) => {
       state.currentOfferData = action.payload;
+    })
+    .addCase(updateOffer, (state, action) => {
+      const id = action.payload.id;
+      if (state.offers[id]) {
+        state.offers[id].isFavorite = action.payload.isFavorite;
+      }
     });
 });
 

@@ -5,6 +5,8 @@ export const ActionType = {
   LOAD_COMMENTS: 'data/loadComments',
   LOAD_OFFERS: 'data/loadOffers',
   LOAD_OFFER_DATA: 'data/loadOffer',
+  LOAD_FAVORITES: 'data/loadFavorites',
+  UPADTE_OFFER: 'data/updateOffer',
   POST_REVIEW: 'data/postReview',
   REDIRECT_TO_ROUTE: 'main/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
@@ -33,6 +35,18 @@ export const loadOffers = createAction(ActionType.LOAD_OFFERS,
 export const loadOffer = createAction(ActionType.LOAD_OFFER_DATA,
   (currentOffer) => ({
     payload: currentOffer,
+  }),
+);
+
+export const loadFavorties = createAction(ActionType.LOAD_FAVORITES,
+  (favoritesData) => ({
+    payload: favoritesData,
+  }),
+);
+
+export const updateOffer = createAction(ActionType.UPADTE_OFFER,
+  (offer) => ({
+    payload: offer,
   }),
 );
 

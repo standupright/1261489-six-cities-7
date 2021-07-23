@@ -2,6 +2,8 @@ import {
   requireAuthorization,
   loadOffers,
   loadOffer,
+  loadFavorties,
+  updateOffer,
   redirectToRoute,
   login as loginUser,
   logout as logoutUser
@@ -33,6 +35,22 @@ export const getOffer = (id) => (dispatch, _getState, api) => (
         comments: CommentsAdapter.getComments(values[2].data),
       })))
     .catch(() => dispatch(redirectToRoute(AppRoute.NOT_FOUND)))
+);
+
+export const getFavoritesList = () => (dispatch, _getState, api) => (
+  api.get(ApiRoute.FAVORITES)
+    .then(({data}) => {
+      dispatch(loadFavorties(OffersAdapter.getOffers(data)));
+    })
+);
+
+export const postFavorite = ({id,status}) => (dispatch, _getState, api) => (
+  api.post(
+    generatePath(ApiRoute.FAVORITES_STATUS, {id, status}))
+    .then(({data}) => {
+      dispatch(updateOffer(OffersAdapter.getOffer(data)));
+    })
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
 );
 
 export const postComment = (id,reviewData) => (dispatch, _getState, api) => (
