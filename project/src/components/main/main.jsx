@@ -18,20 +18,16 @@ function Main() {
   const onCardHover = (cardId) => setSelectedPoint(cardId);
 
   const city = useSelector(getCity);
-  const filteredOffers = useSelector(getfilteredOffers);
   const isDataLoaded = useSelector(getIsDataLoaded);
-
   const dispatch = useDispatch();
 
-  useEffect(
-    () => {
-      if (!isDataLoaded) {
-        dispatch(getOffersList());
-      }
-    },
-    [getOffersList, isDataLoaded],
-  );
+  useEffect(() => {
+    if (!isDataLoaded) {
+      dispatch(getOffersList());
+    }
+  }, [getOffersList, isDataLoaded]);
 
+  const filteredOffers = useSelector(getfilteredOffers);
   const offersByCity = useMemo(
     () => {
       const sortedOffers = [...filteredOffers];
@@ -56,40 +52,7 @@ function Main() {
   return (
     <div className="page page--gray page--main">
       <Header />
-      {isDataLoaded && offersByCity.length > 0 &&
-        <main className="page__main page__main--index">
-          <h1 className="visually-hidden">Cities</h1>
-          <div className="tabs">
-            <Locations />
-          </div>
-          <div className="cities">
-            <div className="cities__places-container container">
-              <section className="cities__places places">
-                <h2 className="visually-hidden">Places</h2>
-                <b className="places__found">
-                  {offersByCity.length} places to stay in {city}
-                </b>
-                <Sorting
-                  currentType={sortType}
-                  onSortingChange={setSortType}
-                  sortingTypes={SortingType}
-                />
-
-                <CardList offers={offersByCity} onCardHover={onCardHover} />
-
-              </section>
-              <div className="cities__right-section">
-                <section className="cities__map map">
-                  <Map
-                    currentCity={city}
-                    offers={offersByCity}
-                    selectedPoint={selectedPoint}
-                  />
-                </section>
-              </div>
-            </div>
-          </div>
-        </main>}
+      {!isDataLoaded && <Spinner />}
       {isDataLoaded && offersByCity.length === 0 &&
         <main className="page__main page__main--index page__main--index-empty">
           <h1 className="visually-hidden">Cities</h1>
@@ -110,7 +73,41 @@ function Main() {
             </div>
           </div>
         </main>}
-      {!isDataLoaded && <Spinner />}
+      {isDataLoaded && offersByCity.length > 0 &&
+        <main className="page__main page__main--index">
+          <h1 className="visually-hidden">Cities</h1>
+          <div className="tabs">
+            <Locations />
+          </div>
+          <div className="cities">
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">
+                  {offersByCity.length} places to stay in {city}
+                </b>
+                <Sorting
+                  currentType={sortType}
+                  onSortingChange={setSortType}
+                  sortingTypes={SortingType}
+                />
+                <CardList
+                  offers={offersByCity}
+                  onCardHover={onCardHover}
+                />
+              </section>
+              <div className="cities__right-section">
+                <section className="cities__map map">
+                  <Map
+                    currentCity={city}
+                    offers={offersByCity}
+                    selectedPoint={selectedPoint}
+                  />
+                </section>
+              </div>
+            </div>
+          </div>
+        </main>}
       <Footer />
     </div>
   );
