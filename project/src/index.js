@@ -9,7 +9,7 @@ import {requireAuthorization} from './store/action';
 import {createAPI} from './api';
 import {redirect} from './store/middlewares/redirect';
 import {AuthStatus} from './const';
-import {getOffersList, checkAuth} from './store/api-actions';
+import {checkAuth} from './store/api-actions';
 import rootReducer from './store/root-reducer';
 
 const api = createAPI(
@@ -27,7 +27,6 @@ const store = configureStore({
 });
 
 store.dispatch(checkAuth());
-store.dispatch(getOffersList());
 
 ReactDOM.render (
   <React.StrictMode>
