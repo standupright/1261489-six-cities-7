@@ -6,7 +6,8 @@ import {
   updateOffer,
   redirectToRoute,
   login as loginUser,
-  logout as logoutUser
+  logout as logoutUser,
+  updateFavorite
 } from './action';
 import {AuthStatus, AppRoute, ApiRoute} from '../const';
 import OffersAdapter from '../utils/offersAdapter';
@@ -51,6 +52,15 @@ export const postFavorite = ({id,status}) => (dispatch, _getState, api) => (
       dispatch(updateOffer(OffersAdapter.getOffer(data)));
     })
     .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
+
+export const updateFavoriteOffer = ({id,status}) => (dispatch, _getState, api) => (
+  api.post(
+    generatePath(ApiRoute.FAVORITES_STATUS, {id, status}))
+    .then(({data}) => {
+      dispatch(updateFavorite(OffersAdapter.getOffer(data)));
+    })
+    .catch(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
 );
 
 export const postComment = (id,reviewData) => (dispatch, _getState, api) => (

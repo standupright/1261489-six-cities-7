@@ -6,6 +6,9 @@ export const getDataOffers = (state) => state[NameSpace.OFFERS].offers;
 export const getDataOffer = (state) => state[NameSpace.OFFERS].currentOfferData;
 export const getIsDataLoaded = (state) => state[NameSpace.OFFERS].isDataLoaded;
 
+export const getFavoritesData = (state) => state[NameSpace.OFFERS].favoritesData;
+export const getisFavoritesLoaded = (state) => state[NameSpace.OFFERS].isFavoritesLoaded;
+
 export const getfilteredOffers = createSelector(
   getDataOffers,
   getCity,

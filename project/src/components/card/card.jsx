@@ -3,8 +3,6 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import {OfferInfo,RATING_MAX} from '../../const';
-import { useDispatch } from 'react-redux';
-import { postFavorite } from '../../store/api-actions';
 
 function Card (props) {
   const {
@@ -12,7 +10,9 @@ function Card (props) {
     onCardHover,
     cardTypeClass,
     cardImgWidth,
-    cardImgHeight} = props;
+    cardImgHeight,
+    handleFavoriteButtonClick,
+  } = props;
 
   const {
     id,
@@ -23,15 +23,6 @@ function Card (props) {
     title,
     type,
     rating} = hotel;
-
-  const dispatch = useDispatch();
-
-  const handleFavoriteButtonClick = () => {
-    dispatch(postFavorite({
-      id,
-      status: isFavorite ? 0 : 1,
-    }));
-  };
 
   const citiesClass = OfferInfo.cardTypeClass.cities;
   const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
@@ -69,7 +60,7 @@ function Card (props) {
           <button
             className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''}  button`}
             type="button"
-            onClick={handleFavoriteButtonClick}
+            onClick={() => handleFavoriteButtonClick(id,isFavorite)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
@@ -98,6 +89,7 @@ function Card (props) {
 
 Card.defaultProps = {
   onCardHover: () => {},
+  handleFavoriteButtonClick: () => {},
 };
 
 Card.propTypes = {
@@ -106,6 +98,7 @@ Card.propTypes = {
   cardTypeClass: PropTypes.string.isRequired,
   cardImgWidth: PropTypes.number.isRequired,
   cardImgHeight: PropTypes.number.isRequired,
+  handleFavoriteButtonClick: PropTypes.func,
 };
 
 export {Card};

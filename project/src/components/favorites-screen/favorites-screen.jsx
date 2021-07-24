@@ -3,39 +3,61 @@ import Card from '../card/card';
 import {OfferInfo, AuthStatus, AppRoute} from '../../const';
 import Header from '../header/header';
 import Footer from '../footer/footer';
-import {getfilteredFavorites, getIsFavoritesLoading} from '../../store/favorite/selector';
+import {getFavoritesData, getisFavoritesLoaded} from '../../store/offers/selector';
 import {useDispatch, useSelector} from 'react-redux';
-import {getFavoritesList} from '../../store/api-actions';
+import {getFavoritesList, updateFavoriteOffer} from '../../store/api-actions';
 import Spinner from '../spinner/spinner';
 import {getAuthorizationStatus} from '../../store/user/selector';
 import { Redirect } from 'react-router-dom';
 
-function FavoritesScreen (props) {
+function FavoritesScreen () {
   const authorizationStatus = useSelector (getAuthorizationStatus);
-  const favoriteOffers = useSelector (getfilteredFavorites);
-  const isFavoritesLoading = useSelector (getIsFavoritesLoading);
+  const favoriteOffers = useSelector (getFavoritesData);
+  const isFavoritesLoaded = useSelector (getisFavoritesLoaded);
   const dispatch = useDispatch ();
+
+  const getGroupedFavorites = (favorites) => favorites.reduce((acc,favorite) => {
+    const city = favorite.city.name;
+    if (!acc[city]) {
+      acc[city] = [];
+    }
+    acc[city].push(favorite);
+    return acc;
+  }, {});
+
+  const groupedFavorites = getGroupedFavorites(favoriteOffers);
+  const favoriteKeysLength = Object.keys(groupedFavorites).length;
 
   useEffect (
     () => {
-      if (!isFavoritesLoading) {
+      if (!isFavoritesLoaded) {
         dispatch (getFavoritesList ());
       }
     },
-    [getFavoritesList, isFavoritesLoading],
+    [getFavoritesList, isFavoritesLoaded],
   );
 
   const favoriteClass = OfferInfo.cardTypeClass.favorite;
   const cardImgWidth = OfferInfo.cardImgWidth.favorite;
   const cardImgHeight = OfferInfo.cardImgHeight.favorite;
 
+  const handleFavoriteButtonClick = (id,isFavorite) => {
+    dispatch(updateFavoriteOffer({
+      id,
+      status: isFavorite ? 0 : 1,
+    }))
+      .then(() => {
+        dispatch(getFavoritesList());
+      });
+  };
+
   return (authorizationStatus === AuthStatus.AUTH
     ? (
       <div className="page">
         <Header />
-        {!isFavoritesLoading && <Spinner />}
-        {isFavoritesLoading &&
-          favoriteOffers.length === 0 &&
+        {!isFavoritesLoaded && <Spinner />}
+        {isFavoritesLoaded &&
+          favoriteKeysLength === 0 &&
           <main className="page__main page__main--favorites page__main--favorites-empty">
             <div className="page__favorites-container container">
               <section className="favorites favorites--empty">
@@ -49,14 +71,14 @@ function FavoritesScreen (props) {
               </section>
             </div>
           </main>}
-        {isFavoritesLoading &&
-          favoriteOffers.length > 0 &&
+        {isFavoritesLoaded &&
+          favoriteKeysLength  > 0 &&
           <main className="page__main page__main--favorites">
             <div className="page__favorites-container container">
               <section className="favorites">
                 <h1 className="favorites__title">Saved listing</h1>
                 <ul className="favorites__list">
-                  {Object.keys (favoriteOffers).map ((nameCity) => (
+                  {Object.keys(groupedFavorites).map ((nameCity) => (
                     <li key={nameCity} className="favorites__locations-items">
                       <div className="favorites__locations locations locations--current">
                         <div className="locations__item">
@@ -66,13 +88,14 @@ function FavoritesScreen (props) {
                         </div>
                       </div>
                       <div className="favorites__places">
-                        {favoriteOffers[`${nameCity}`].map ((hotel) => (
+                        {groupedFavorites[`${nameCity}`].map ((hotel) => (
                           <Card
                             key={`${hotel.city.name + favoriteClass + hotel.id}`}
                             hotel={hotel}
                             cardTypeClass={favoriteClass}
                             cardImgWidth={cardImgWidth}
                             cardImgHeight={cardImgHeight}
+                            handleFavoriteButtonClick={handleFavoriteButtonClick}
                           />
                         ))}
                       </div>

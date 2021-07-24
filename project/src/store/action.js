@@ -7,6 +7,7 @@ export const ActionType = {
   LOAD_OFFER_DATA: 'data/loadOffer',
   LOAD_FAVORITES: 'data/loadFavorites',
   UPADTE_OFFER: 'data/updateOffer',
+  UPDATE_FAVORITE: 'data/updateFavorite',
   POST_REVIEW: 'data/postReview',
   REDIRECT_TO_ROUTE: 'main/redirectToRoute',
   REQUIRED_AUTHORIZATION: 'user/requiredAuthorization',
@@ -47,6 +48,12 @@ export const loadFavorties = createAction(ActionType.LOAD_FAVORITES,
 export const updateOffer = createAction(ActionType.UPADTE_OFFER,
   (offer) => ({
     payload: offer,
+  }),
+);
+
+export const updateFavorite = createAction(ActionType.UPDATE_FAVORITE,
+  (favorite) => ({
+    payload: favorite,
   }),
 );
 

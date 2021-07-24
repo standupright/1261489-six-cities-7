@@ -10,7 +10,7 @@ import Footer from '../footer/footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getfilteredOffers, getIsDataLoaded } from '../../store/offers/selector';
 import { getCity } from '../../store/cities/selector';
-import { getOffersList } from '../../store/api-actions';
+import { getOffersList, postFavorite } from '../../store/api-actions';
 
 function Main() {
   const [selectedPoint, setSelectedPoint] = useState(null);
@@ -19,6 +19,7 @@ function Main() {
 
   const city = useSelector(getCity);
   const isDataLoaded = useSelector(getIsDataLoaded);
+
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -48,6 +49,13 @@ function Main() {
     },
     [sortType, filteredOffers],
   );
+
+  const handleFavoriteButtonClick = (id,isFavorite) => {
+    dispatch(postFavorite({
+      id,
+      status: isFavorite ? 0 : 1,
+    }));
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -94,6 +102,7 @@ function Main() {
                 <CardList
                   offers={offersByCity}
                   onCardHover={onCardHover}
+                  handleFavoriteButtonClick={handleFavoriteButtonClick}
                 />
               </section>
               <div className="cities__right-section">
