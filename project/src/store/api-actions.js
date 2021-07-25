@@ -71,8 +71,6 @@ export const postComment = (id,reviewData) => (dispatch, _getState, api) => (
         comments: CommentsAdapter.getComments(data),
       }));
     })
-    .catch(() => {//Тут будет реализован bad request в след задании
-    })
 );
 
 export const checkAuth = () => (dispatch, _getState, api) => (
@@ -82,7 +80,7 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+export const login = ({login: email,password}) => (dispatch, _getState, api) => (
   api.post(ApiRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
