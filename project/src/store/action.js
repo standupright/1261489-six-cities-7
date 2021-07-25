@@ -4,9 +4,10 @@ export const ActionType = {
   CHANGE_CITY: 'main/changeCity',
   LOAD_COMMENTS: 'data/loadComments',
   LOAD_OFFERS: 'data/loadOffers',
-  LOAD_OFFER_DATA: 'data/loadOffer',
+  LOAD_CURRENT_OFFER: 'data/loadCurrentOffer',
   LOAD_FAVORITES: 'data/loadFavorites',
   UPADTE_OFFER: 'data/updateOffer',
+  UPDATE_CURRENT_OFFER: 'date/updateCurrentOffer',
   UPDATE_FAVORITE: 'data/updateFavorite',
   POST_REVIEW: 'data/postReview',
   REDIRECT_TO_ROUTE: 'main/redirectToRoute',
@@ -33,7 +34,19 @@ export const loadOffers = createAction(ActionType.LOAD_OFFERS,
   }),
 );
 
-export const loadOffer = createAction(ActionType.LOAD_OFFER_DATA,
+export const updateOffer = createAction(ActionType.UPADTE_OFFER,
+  (offer) => ({
+    payload: offer,
+  }),
+);
+
+export const loadCurrentOffer = createAction(ActionType.LOAD_CURRENT_OFFER,
+  (currentOffer) => ({
+    payload: currentOffer,
+  }),
+);
+
+export const updateCurrentOffer = createAction(ActionType.UPDATE_CURRENT_OFFER,
   (currentOffer) => ({
     payload: currentOffer,
   }),
@@ -42,12 +55,6 @@ export const loadOffer = createAction(ActionType.LOAD_OFFER_DATA,
 export const loadFavorties = createAction(ActionType.LOAD_FAVORITES,
   (favoritesData) => ({
     payload: favoritesData,
-  }),
-);
-
-export const updateOffer = createAction(ActionType.UPADTE_OFFER,
-  (offer) => ({
-    payload: offer,
   }),
 );
 

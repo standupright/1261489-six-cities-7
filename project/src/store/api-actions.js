@@ -1,9 +1,10 @@
 import {
   requireAuthorization,
   loadOffers,
-  loadOffer,
+  loadCurrentOffer,
   loadFavorties,
   updateOffer,
+  updateCurrentOffer as updateCurrent,
   redirectToRoute,
   login as loginUser,
   logout as logoutUser,
@@ -29,7 +30,7 @@ export const getOffer = (id) => (dispatch, _getState, api) => (
     api.get(generatePath(ApiRoute.COMMENTS, { id }))],
   )
     .then((values) =>
-      dispatch(loadOffer({
+      dispatch(loadCurrentOffer({
         id: Number(id),
         offer: OffersAdapter.getOffer(values[0].data),
         nearby: OffersAdapter.getOffers(values[1].data),
@@ -60,14 +61,26 @@ export const updateFavoriteOffer = ({id,status}) => (dispatch, _getState, api) =
     .then(({data}) => {
       dispatch(updateFavorite(OffersAdapter.getOffer(data)));
     })
-    .catch(() => dispatch(redirectToRoute(AppRoute.FAVORITES)))
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
 );
+
+export const updateCurrentOffer = ({id,status}) => (dispatch, _getState, api) => (
+  api.post(
+    generatePath(ApiRoute.FAVORITES_STATUS, {id, status}))
+    .then(({data}) => {
+      dispatch(updateCurrent(
+        OffersAdapter.getOffer(data),
+      ));
+    })
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
+
 
 export const postComment = (id,reviewData) => (dispatch, _getState, api) => (
   api.post(
     generatePath(ApiRoute.COMMENTS, {id}),reviewData)
     .then(({data}) => {
-      dispatch(loadOffer({
+      dispatch(loadCurrentOffer({
         comments: CommentsAdapter.getComments(data),
       }));
     })

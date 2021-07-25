@@ -44,15 +44,21 @@ function ReviewForm() {
   };
 
   const handleSubmit = (evt) => {
-    //alert ('Форма отправлена');
     evt.preventDefault();
-    setFormAvailable(false);
-    dispatch(postComment(id, reviewData))
-      .then(() => resetForm())
-      .catch(() => {
-        setIsFailed(true);
-        setFormAvailable(true);
-      });
+    if (isFormAvailable) {
+      setFormAvailable(false);
+
+      dispatch(postComment(id, reviewData))
+        .then(() => {
+          isFormAvailable ?? resetForm();
+        })
+        .catch(() => {
+          if (isFormAvailable) {
+            setIsFailed(true);
+            setFormAvailable(true);
+          }
+        });
+    }
   };
 
   const createIdStars = () => {

@@ -4,26 +4,40 @@ import Room from '../room/room';
 import Header from '../header/header';
 import NearPlaces from '../near-places/near-places';
 import Spinner from '../spinner/spinner';
-import {getOffer} from '../../store/api-actions';
+import {getOffer, updateCurrentOffer} from '../../store/api-actions';
 import {useParams} from 'react-router-dom';
-import {getDataOffer} from '../../store/offers/selector';
+import {getCurrentOffer, getIsCurrentOfferLoaded} from '../../store/offers/selector';
+
 
 function RoomScreen() {
   const { id } = useParams();
-  const currentOfferData = useSelector(getDataOffer);
+  const currentOfferData = useSelector(getCurrentOffer);
   const dispatch = useDispatch();
   const { offer, nearby, comments } = currentOfferData;
+  const isCurrentOfferLoaded = useSelector(getIsCurrentOfferLoaded);
 
   useEffect(() => {
-    if (Number(id) !== currentOfferData.id) {
+    if (!isCurrentOfferLoaded) {
       dispatch(getOffer(id));
     }
-  }, [getOffer, id, currentOfferData]);
+  }, [getOffer, isCurrentOfferLoaded]);
 
-  return Number(id) === currentOfferData.id ? (
+  const handleFavoriteButtonClick = (offerId,isFavorite) => {
+    dispatch(updateCurrentOffer({
+      id: offerId,
+      status: isFavorite ? 0 : 1,
+    }));
+  };
+
+  return isCurrentOfferLoaded ? (
     <div className='page'>
       <Header />
-      <Room room={offer} reviews={comments} nearOffers={nearby} />
+      <Room
+        room={offer}
+        reviews={comments}
+        nearOffers={nearby}
+        handleFavoriteButtonClick={handleFavoriteButtonClick}
+      />
       <NearPlaces nearOffers={nearby} />
     </div>
   ) : (
