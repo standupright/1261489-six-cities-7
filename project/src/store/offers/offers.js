@@ -31,7 +31,10 @@ const offers = createReducer(initialState, (builder) => {
     })
 
     .addCase(loadCurrentOffer, (state, action) => {
-      state.currentOfferData = action.payload;
+      state.currentOfferData = {
+        ...state.currentOfferData,
+        ...action.payload,
+      };
       state.isCurrentOfferLoaded = true;
     })
     .addCase(updateCurrentOffer, (state, action) => {

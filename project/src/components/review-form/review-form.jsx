@@ -50,10 +50,11 @@ function ReviewForm() {
 
       dispatch(postComment(id, reviewData))
         .then(() => {
-          isFormAvailable ?? resetForm();
-        })
+          if(isFormAvailable) {
+            resetForm();
+          }})
         .catch(() => {
-          if (isFormAvailable) {
+          if (!isFormAvailable) {
             setIsFailed(true);
             setFormAvailable(true);
           }
