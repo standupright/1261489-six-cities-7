@@ -25,7 +25,7 @@ function Card (props) {
     rating} = hotel;
 
   const citiesClass = OfferInfo.cardTypeClass.cities;
-  const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
+  const ratingStars = `${Math.round(rating) * RATING_MAX}%`;
   return (
     <article className={`${cardTypeClass}__place-card place-card`}
       onMouseEnter={() => onCardHover(id)}

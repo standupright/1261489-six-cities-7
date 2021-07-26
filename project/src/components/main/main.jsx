@@ -39,7 +39,7 @@ function Main() {
         case SortingType.HIGH_TO_LOW:
           sortedOffers.sort((a, b) => b.price - a.price);
           break;
-        case SortingType.TOP_RATED:
+        case SortingType.TOP_RATED_FIRST:
           sortedOffers.sort((a, b) => b.rating - a.rating);
           break;
         default:
@@ -77,7 +77,7 @@ function Main() {
                   </p>
                 </div>
               </section>
-              <div className="cities__right-section" />
+              <div className="cities__right-section"/>
             </div>
           </div>
         </main>}

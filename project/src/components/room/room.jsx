@@ -4,30 +4,33 @@ import Reviews from '../reviews/reviews';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 import Map from '../map/map';
 import offersPropShape from '../../prop-validation/offers.prop';
+import { NUBMER_IMAGES, RATING_MAX, OfferTypes } from '../../const';
 
 function Room (props) {
   const {room, reviews,  nearOffers, onFavoriteButtonClick} = props;
-  const rating = `${Math.round (room.rating) / 5 * 100}%`;
+  const rating = `${Math.round (room.rating) * RATING_MAX}%`;
   const nearOffersForMap = [...nearOffers,room];
 
   return (
     <section className="property">
       <div className="property__gallery-container container">
         <div className="property__gallery">
-          {room.images.map ((imgSrc) => (
-            <div
-              key={imgSrc}
-              className="property__image-wrapper"
-            >
-              <img
-                className="property__image"
-                width="260"
-                height="220"
-                src={imgSrc}
-                alt="Photo studio"
-              />
-            </div>
-          ))}
+          {room.images
+            .slice(0,NUBMER_IMAGES)
+            .map ((imgSrc) => (
+              <div
+                key={imgSrc}
+                className="property__image-wrapper"
+              >
+                <img
+                  className="property__image"
+                  width="260"
+                  height="220"
+                  src={imgSrc}
+                  alt="Photo studio"
+                />
+              </div>
+            ))}
         </div>
       </div>
       <div className="property__container container">
@@ -62,7 +65,7 @@ function Room (props) {
           </div>
           <ul className="property__features">
             <li className="property__feature property__feature--entire">
-              {room.type}
+              {OfferTypes[`${room.type}`] || 'Unknown'}
             </li>
             <li className="property__feature property__feature--bedrooms">
               {room.bedrooms} Bedrooms
