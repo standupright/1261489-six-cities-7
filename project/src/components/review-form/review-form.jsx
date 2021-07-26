@@ -54,7 +54,7 @@ function ReviewForm() {
             resetForm();
           }})
         .catch(() => {
-          if (!isFormAvailable) {
+          if (isFormAvailable) {
             setIsFailed(true);
             setFormAvailable(true);
           }
