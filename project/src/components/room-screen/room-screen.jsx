@@ -36,7 +36,7 @@ function RoomScreen() {
         room={offer}
         reviews={comments}
         nearOffers={nearby}
-        handleFavoriteButtonClick={handleFavoriteButtonClick}
+        onFavoriteButtonClick={handleFavoriteButtonClick}
       />
       <NearPlaces nearOffers={nearby} />
     </div>

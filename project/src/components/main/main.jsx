@@ -102,7 +102,7 @@ function Main() {
                 <CardList
                   offers={offersByCity}
                   onCardHover={onCardHover}
-                  handleFavoriteButtonClick={handleFavoriteButtonClick}
+                  onFavoriteButtonClick={handleFavoriteButtonClick}
                 />
               </section>
               <div className="cities__right-section">

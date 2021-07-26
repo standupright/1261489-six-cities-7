@@ -5,7 +5,7 @@ import offersPropShape from '../../prop-validation/offers.prop';
 import {OfferInfo} from '../../const';
 
 function CardsList (props) {
-  const {offers, onCardHover, handleFavoriteButtonClick} = props;
+  const {offers, onCardHover, onFavoriteButtonClick} = props;
   const city = OfferInfo.cardTypeClass.cities;
   const cardImgWidth = OfferInfo.cardImgWidth.cities;
   const cardImgHeight = OfferInfo.cardImgHeight.cities;
@@ -21,7 +21,7 @@ function CardsList (props) {
             cardImgWidth={cardImgWidth}
             cardImgHeight={cardImgHeight}
             onCardHover={onCardHover}
-            handleFavoriteButtonClick = {handleFavoriteButtonClick}
+            onFavoriteButtonClick = {onFavoriteButtonClick}
           />))}
     </div>
   );
@@ -29,13 +29,13 @@ function CardsList (props) {
 
 CardsList.defaultProps = {
   onCardHover: () => {},
-  handleFavoriteButtonClick: () => {},
+  onFavoriteButtonClick: () => {},
 };
 
 CardsList.propTypes = {
   offers: PropTypes.arrayOf(offersPropShape).isRequired,
   onCardHover: PropTypes.func,
-  handleFavoriteButtonClick: PropTypes.func,
+  onFavoriteButtonClick: PropTypes.func,
 };
 
 export default CardsList;

@@ -11,7 +11,7 @@ function Card (props) {
     cardTypeClass,
     cardImgWidth,
     cardImgHeight,
-    handleFavoriteButtonClick,
+    onFavoriteButtonClick,
   } = props;
 
   const {
@@ -60,7 +60,7 @@ function Card (props) {
           <button
             className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''}  button`}
             type="button"
-            onClick={() => handleFavoriteButtonClick(id,isFavorite)}
+            onClick={() => onFavoriteButtonClick(id,isFavorite)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
@@ -89,7 +89,7 @@ function Card (props) {
 
 Card.defaultProps = {
   onCardHover: () => {},
-  handleFavoriteButtonClick: () => {},
+  onFavoriteButtonClick: () => {},
 };
 
 Card.propTypes = {
@@ -98,7 +98,7 @@ Card.propTypes = {
   cardTypeClass: PropTypes.string.isRequired,
   cardImgWidth: PropTypes.number.isRequired,
   cardImgHeight: PropTypes.number.isRequired,
-  handleFavoriteButtonClick: PropTypes.func,
+  onFavoriteButtonClick: PropTypes.func,
 };
 
 export {Card};

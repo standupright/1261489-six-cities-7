@@ -6,7 +6,7 @@ import Map from '../map/map';
 import offersPropShape from '../../prop-validation/offers.prop';
 
 function Room (props) {
-  const {room, reviews,  nearOffers, handleFavoriteButtonClick} = props;
+  const {room, reviews,  nearOffers, onFavoriteButtonClick} = props;
   const rating = `${Math.round (room.rating) / 5 * 100}%`;
   const nearOffersForMap = [...nearOffers,room];
 
@@ -43,7 +43,7 @@ function Room (props) {
             <button
               className={`property__bookmark-button ${room.isFavorite ? 'property__bookmark-button--active' : ''} button`}
               type="button"
-              onClick={() => handleFavoriteButtonClick(room.id, room.isFavorite)}
+              onClick={() => onFavoriteButtonClick(room.id, room.isFavorite)}
             >
               <svg className="property__bookmark-icon" width="31" height="33">
                 <use xlinkHref="#icon-bookmark" />
@@ -127,14 +127,14 @@ function Room (props) {
 
 
 Room.defaultProps = {
-  handleFavoriteButtonClick: () => {},
+  onFavoriteButtonClick: () => {},
 };
 
 Room.propTypes = {
   room: offersPropShape.isRequired,
   nearOffers: PropTypes.arrayOf(offersPropShape).isRequired,
   reviews: PropTypes.arrayOf(reviewsPropShape).isRequired,
-  handleFavoriteButtonClick: PropTypes.func,
+  onFavoriteButtonClick: PropTypes.func,
 };
 
 export default Room;

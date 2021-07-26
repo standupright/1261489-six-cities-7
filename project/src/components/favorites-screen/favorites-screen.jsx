@@ -92,7 +92,7 @@ function FavoritesScreen() {
                           cardTypeClass={favoriteClass}
                           cardImgWidth={cardImgWidth}
                           cardImgHeight={cardImgHeight}
-                          handleFavoriteButtonClick={handleFavoriteButtonClick}
+                          onFavoriteButtonClick={handleFavoriteButtonClick}
                         />
                       ))}
                     </div>
