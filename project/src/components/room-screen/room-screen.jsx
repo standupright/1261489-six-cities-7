@@ -17,10 +17,10 @@ function RoomScreen() {
   const isCurrentOfferLoaded = useSelector(getIsCurrentOfferLoaded);
 
   useEffect(() => {
-    if (!isCurrentOfferLoaded) {
+    if (!isCurrentOfferLoaded || Number(id) !== currentOfferData.id) {
       dispatch(getOffer(id));
     }
-  }, [getOffer, isCurrentOfferLoaded]);
+  }, [getOffer, isCurrentOfferLoaded,currentOfferData]);
 
   const handleFavoriteButtonClick = (offerId,isFavorite) => {
     dispatch(updateCurrentOffer({
