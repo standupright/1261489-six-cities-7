@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {generatePath, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import {OfferInfo,RATING_MAX} from '../../const';
+import {AppRoute, OfferInfo,RATING_MAX} from '../../const';
 
 function Card (props) {
   const {
@@ -75,7 +75,7 @@ function Card (props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${id}`}>
+          <Link to={generatePath(AppRoute.ROOM, {id})}>
             {title}
           </Link>
         </h2>
