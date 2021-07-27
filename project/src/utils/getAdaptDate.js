@@ -2,6 +2,11 @@ import { MONTHS } from '../const';
 
 export const getAdaptDate = (date) => {
   const aDate = new Date(date);
-  const verboseDate = `${MONTHS[aDate.getMonth()]} ${aDate.getFullYear()}`;
-  return verboseDate;
+  const adaptDate = `${MONTHS[aDate.getMonth()]} ${aDate.getFullYear()}`;
+  return adaptDate;
+};
+
+export const getMiliSeconds = (date) => {
+  const aDate = new Date(date);
+  return aDate.getMilliseconds();
 };
