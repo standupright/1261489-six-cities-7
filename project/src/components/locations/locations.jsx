@@ -13,14 +13,14 @@ function Locations (props) {
       <ul className="locations__list tabs__list">
         {Object.keys(CITIES).map ((cityName) => (
           <li key={cityName} className="locations__item">
-            <button
-              style={{cursor:'pointer', border:'none'}}
+            <span
+              style={{cursor:'pointer'}}
               className={`locations__item-link tabs__item ${cityName === city ? 'tabs__item--active' : ''}`}
               href="#"
               onClick={() => dispatch(changeCity(cityName))}
             >
               <span>{cityName}</span>
-            </button>
+            </span>
           </li>
         ))}
       </ul>
