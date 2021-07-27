@@ -2,7 +2,7 @@ import React from 'react';
 import {generatePath, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import {AppRoute, OfferInfo,RATING_MAX} from '../../const';
+import {AppRoute, RATING_MAX} from '../../const';
 
 function Card (props) {
   const {
@@ -24,28 +24,27 @@ function Card (props) {
     type,
     rating} = hotel;
 
-  const citiesClass = OfferInfo.cardTypeClass.cities;
   const ratingStars = `${Math.round(rating) * RATING_MAX}%`;
   return (
     <article className={`${cardTypeClass}__place-card place-card`}
       onMouseEnter={() => onCardHover(id)}
       onMouseLeave={()=> onCardHover(null)}
     >
-      {isPremium && cardTypeClass === citiesClass &&
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
 
       <div className={`${cardTypeClass}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={generatePath(AppRoute.ROOM, {id})}>
           <img
             className="place-card__image"
             src={previewImage}
             width={cardImgWidth}
             height={cardImgHeight}
-            alt="Place image"
+            alt="Place"
           />
-        </a>
+        </Link>
       </div>
       <div className={`${cardTypeClass}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">

@@ -26,7 +26,7 @@ function Main() {
     if (!isDataLoaded) {
       dispatch(getOffersList());
     }
-  }, [getOffersList, isDataLoaded]);
+  }, [dispatch, isDataLoaded]);
 
   const filteredOffers = useSelector(getfilteredOffers);
   const offersByCity = useMemo(

@@ -20,7 +20,7 @@ function RoomScreen() {
     if (!isCurrentOfferLoaded || Number(id) !== currentOfferData.id) {
       dispatch(getOffer(id));
     }
-  }, [getOffer, isCurrentOfferLoaded,currentOfferData,id]);
+  }, [dispatch, isCurrentOfferLoaded,currentOfferData,id]);
 
   const handleFavoriteButtonClick = (offerId,isFavorite) => {
     dispatch(updateCurrentOffer({

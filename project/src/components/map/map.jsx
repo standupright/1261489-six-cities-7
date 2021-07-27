@@ -1,6 +1,6 @@
 import 'leaflet/dist/leaflet.css';
 import leaflet from 'leaflet';
-import React, {useRef,useEffect} from 'react';
+import React, {useRef,useEffect, useCallback} from 'react';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
 import useMap from '../../hooks/use-map';
@@ -27,7 +27,7 @@ function Map (props) {
     iconAnchor: [15, 30],
   });
 
-  const addMarkersToLayer = (layerGroup,points) => {
+  const addMarkersToLayer = useCallback((layerGroup,points) => {
     points.forEach ( (point) => {
       leaflet
         .marker (
@@ -43,7 +43,7 @@ function Map (props) {
         )
         .addTo (layerGroup);
     });
-  };
+  },[currentCustomIcon,defaultCustomIcon,selectedPoint]);
 
   useEffect(() => {
     const layerGroup = leaflet.layerGroup();
@@ -60,7 +60,7 @@ function Map (props) {
     }
 
     return () => layerGroup.clearLayers();
-  }, [map, offers, selectedPoint]);
+  }, [addMarkersToLayer,currentCity,map, offers, selectedPoint]);
 
   return (
     <div

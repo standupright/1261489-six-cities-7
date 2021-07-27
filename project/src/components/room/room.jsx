@@ -27,7 +27,7 @@ function Room (props) {
                   width="260"
                   height="220"
                   src={imgSrc}
-                  alt="Photo studio"
+                  alt="Studio"
                 />
               </div>
             ))}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import Card from '../card/card';
-import { OfferInfo} from '../../const';
+import { AppRoute, OfferInfo} from '../../const';
 import Header from '../header/header';
 import Footer from '../footer/footer';
 import {
@@ -10,6 +10,7 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import { getFavoritesList, updateFavoriteOffer } from '../../store/api-actions';
 import Spinner from '../spinner/spinner';
+import { Link } from 'react-router-dom';
 
 function FavoritesScreen() {
   const favoriteOffers = useSelector(getFavoritesData);
@@ -33,7 +34,7 @@ function FavoritesScreen() {
     if (!isFavoritesLoaded) {
       dispatch(getFavoritesList());
     }
-  }, [getFavoritesList, isFavoritesLoaded]);
+  }, [isFavoritesLoaded, dispatch]);
 
   const favoriteClass = OfferInfo.cardTypeClass.favorite;
   const cardImgWidth = OfferInfo.cardImgWidth.favorite;
@@ -79,9 +80,9 @@ function FavoritesScreen() {
                   <li key={nameCity} className='favorites__locations-items'>
                     <div className='favorites__locations locations locations--current'>
                       <div className='locations__item'>
-                        <a className='locations__item-link' href='#'>
+                        <Link className='locations__item-link' to={AppRoute.ROOT}>
                           <span>{nameCity}</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className='favorites__places'>
