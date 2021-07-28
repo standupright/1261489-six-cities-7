@@ -1,10 +1,14 @@
 import {
   requireAuthorization,
   loadOffers,
-  loadOffer,
+  loadCurrentOffer,
+  loadFavorties,
+  updateOffer,
+  updateCurrentOffer as updateCurrent,
   redirectToRoute,
   login as loginUser,
-  logout as logoutUser
+  logout as logoutUser,
+  updateFavorite
 } from './action';
 import {AuthStatus, AppRoute, ApiRoute} from '../const';
 import OffersAdapter from '../utils/offersAdapter';
@@ -26,7 +30,7 @@ export const getOffer = (id) => (dispatch, _getState, api) => (
     api.get(generatePath(ApiRoute.COMMENTS, { id }))],
   )
     .then((values) =>
-      dispatch(loadOffer({
+      dispatch(loadCurrentOffer({
         id: Number(id),
         offer: OffersAdapter.getOffer(values[0].data),
         nearby: OffersAdapter.getOffers(values[1].data),
@@ -35,15 +39,51 @@ export const getOffer = (id) => (dispatch, _getState, api) => (
     .catch(() => dispatch(redirectToRoute(AppRoute.NOT_FOUND)))
 );
 
+export const getFavoritesList = () => (dispatch, _getState, api) => (
+  api.get(ApiRoute.FAVORITES)
+    .then(({data}) => {
+      dispatch(loadFavorties(OffersAdapter.getOffers(data)));
+    })
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
+
+export const postFavorite = ({id,status}) => (dispatch, _getState, api) => (
+  api.post(
+    generatePath(ApiRoute.FAVORITES_STATUS, {id, status}))
+    .then(({data}) => {
+      dispatch(updateOffer(OffersAdapter.getOffer(data)));
+    })
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
+
+export const updateFavoriteOffer = ({id,status}) => (dispatch, _getState, api) => (
+  api.post(
+    generatePath(ApiRoute.FAVORITES_STATUS, {id, status}))
+    .then(({data}) => {
+      dispatch(updateFavorite(OffersAdapter.getOffer(data)));
+    })
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
+
+export const updateCurrentOffer = ({id,status}) => (dispatch, _getState, api) => (
+  api.post(
+    generatePath(ApiRoute.FAVORITES_STATUS, {id, status}))
+    .then(({data}) => {
+      dispatch(updateCurrent(
+        OffersAdapter.getOffer(data),
+      ));
+    })
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+);
+
+
 export const postComment = (id,reviewData) => (dispatch, _getState, api) => (
   api.post(
     generatePath(ApiRoute.COMMENTS, {id}),reviewData)
     .then(({data}) => {
-      dispatch(loadOffer({
+      dispatch(loadCurrentOffer({
         comments: CommentsAdapter.getComments(data),
       }));
-    })
-    .catch(() => {//Тут будет реализован bad request в след задании
     })
 );
 
@@ -54,7 +94,7 @@ export const checkAuth = () => (dispatch, _getState, api) => (
     .catch(() => {})
 );
 
-export const login = ({login: email, password}) => (dispatch, _getState, api) => (
+export const login = ({login: email,password}) => (dispatch, _getState, api) => (
   api.post(ApiRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);

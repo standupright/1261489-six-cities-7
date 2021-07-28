@@ -1,8 +1,8 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {generatePath, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import {OfferInfo,RATING_MAX} from '../../const';
+import {AppRoute, RATING_MAX} from '../../const';
 
 function Card (props) {
   const {
@@ -10,39 +10,41 @@ function Card (props) {
     onCardHover,
     cardTypeClass,
     cardImgWidth,
-    cardImgHeight} = props;
+    cardImgHeight,
+    onFavoriteButtonClick,
+  } = props;
 
   const {
     id,
     previewImage,
+    isFavorite,
     isPremium,
     price,
     title,
     type,
     rating} = hotel;
 
-  const citiesClass = OfferInfo.cardTypeClass.cities;
-  const ratingStars = `${Math.round(rating) / RATING_MAX}%`;
+  const ratingStars = `${Math.round(rating) * RATING_MAX}%`;
   return (
     <article className={`${cardTypeClass}__place-card place-card`}
       onMouseEnter={() => onCardHover(id)}
       onMouseLeave={()=> onCardHover(null)}
     >
-      {isPremium && cardTypeClass === citiesClass &&
+      {isPremium &&
         <div className="place-card__mark">
           <span>Premium</span>
         </div>}
 
       <div className={`${cardTypeClass}__image-wrapper place-card__image-wrapper`}>
-        <a href="#">
+        <Link to={generatePath(AppRoute.ROOM, {id})}>
           <img
             className="place-card__image"
             src={previewImage}
             width={cardImgWidth}
             height={cardImgHeight}
-            alt="Place image"
+            alt="Place"
           />
-        </a>
+        </Link>
       </div>
       <div className={`${cardTypeClass}__card-info place-card__info`}>
         <div className="place-card__price-wrapper">
@@ -54,7 +56,11 @@ function Card (props) {
               &#47;&nbsp;night
             </span>
           </div>
-          <button className="place-card__bookmark-button button" type="button">
+          <button
+            className={`place-card__bookmark-button ${isFavorite ? 'place-card__bookmark-button--active' : ''}  button`}
+            type="button"
+            onClick={() => onFavoriteButtonClick(id,isFavorite)}
+          >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark" />
             </svg>
@@ -68,7 +74,7 @@ function Card (props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`offer/${id}`}>
+          <Link to={generatePath(AppRoute.ROOM, {id})}>
             {title}
           </Link>
         </h2>
@@ -82,6 +88,7 @@ function Card (props) {
 
 Card.defaultProps = {
   onCardHover: () => {},
+  onFavoriteButtonClick: () => {},
 };
 
 Card.propTypes = {
@@ -90,6 +97,8 @@ Card.propTypes = {
   cardTypeClass: PropTypes.string.isRequired,
   cardImgWidth: PropTypes.number.isRequired,
   cardImgHeight: PropTypes.number.isRequired,
+  onFavoriteButtonClick: PropTypes.func,
 };
 
+export {Card};
 export default Card;

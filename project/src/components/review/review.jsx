@@ -1,6 +1,7 @@
 import React from 'react';
 import reviewsPropShape from '../../prop-validation/reviews.prop';
 import {RATING_MAX} from '../../const';
+import { getAdaptDate } from '../../utils/getAdaptDate';
 
 function Review(props) {
   const {review} = props;
@@ -22,13 +23,13 @@ function Review(props) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{ width: `${review.rating / RATING_MAX}%` }} />
+            <span style={{ width: `${review.rating * RATING_MAX}%` }} />
             <span className="visually-hidden">{review.rating}</span>
           </div>
         </div>
         <p className="reviews__text">{review.comment}</p>
         <time className="reviews__time" dateTime={review.date}>
-          {review.date}
+          {getAdaptDate(review.date)}
         </time>
       </div>
     </li>

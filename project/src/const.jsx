@@ -1,7 +1,7 @@
 export const AppRoute = {
   ROOT: '/',
   ROOM: '/offer/:id?',
-  FAVORITES: '/favorite',
+  FAVORITES: '/favorites',
   LOGIN: '/login',
   NOT_FOUND: '/404',
 };
@@ -12,7 +12,8 @@ export const ApiRoute = {
   OFFERS: '/hotels',
   OFFER: '/hotels/:id',
   COMMENTS: '/comments/:id',
-  FAVORITE_STATUS: '/favorite/:id/:status',
+  FAVORITES: '/favorite',
+  FAVORITES_STATUS: '/favorite/:id/:status',
   NEARBY: '/hotels/:id/nearby',
 };
 
@@ -68,7 +69,8 @@ export const OfferInfo = {
   offerTypes: ['apartment','room','house','hotel'],
 };
 
-export const RATING_MAX = 0.05;
+export const RATING_MAX = 20;
+export const NUBMER_IMAGES = 6;
 
 export const STARS_QUANTITY = 5;
 
@@ -88,7 +90,7 @@ export const SortingType = {
   TOP_RATED_FIRST: 'Top rated first',
   POPULAR: 'Popular',
   LOW_TO_HIGH: 'Price: low to high',
-  HIGHT_TO_LOW: 'Price: high to low',
+  HIGH_TO_LOW: 'Price: high to low',
 };
 
 export const AuthStatus = {
@@ -102,4 +104,16 @@ export const CommentValidation = {
   MAX_RATING: 5,
   MIN_LENGTH: 50,
   MAX_LENGTH: 300,
+};
+
+export const MONTHS= [
+  'January', 'February', 'March', 'April', 'May', 'June',
+  'July', 'August', 'September', 'October', 'November', 'December',
+];
+
+export const OfferTypes = {
+  'apartment': 'Apartment',
+  'room': 'Private Room',
+  'house': 'House',
+  'hotel': 'Hotel',
 };

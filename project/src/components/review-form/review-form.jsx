@@ -4,6 +4,7 @@ import {useDispatch, useSelector} from 'react-redux';
 import {postComment} from '../../store/api-actions';
 import {useParams} from 'react-router-dom';
 import {getAuthorizationStatus} from '../../store/user/selector';
+import ErrorMessage from '../error-message/error-message';
 
 function ReviewForm() {
   const [reviewData, setReviewData] = useState({
@@ -11,7 +12,7 @@ function ReviewForm() {
     comment: '',
   });
   const [isFormAvailable, setFormAvailable] = useState(true);
-
+  const [isFailed, setIsFailed] = useState(false);
   const { id } = useParams();
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
@@ -43,12 +44,23 @@ function ReviewForm() {
   };
 
   const handleSubmit = (evt) => {
-    //alert ('Форма отправлена');
     evt.preventDefault();
-    setFormAvailable(false);
-    dispatch(postComment(id, reviewData))
-      .then(() => resetForm())
-      .catch(() => setFormAvailable(true));
+    if (isFormAvailable) {
+      setFormAvailable(false);
+
+      dispatch(postComment(id, reviewData))
+        .then(() => {
+          if(isFormAvailable) {
+            setIsFailed(false);
+            resetForm();
+          }})
+        .catch(() => {
+          if (isFormAvailable) {
+            setIsFailed(true);
+            setFormAvailable(true);
+          }
+        });
+    }
   };
 
   const createIdStars = () => {
@@ -118,6 +130,7 @@ function ReviewForm() {
             Submit
           </button>
         </div>
+        {isFailed && <ErrorMessage />}
       </form>
     )
   );

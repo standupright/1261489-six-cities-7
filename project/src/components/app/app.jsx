@@ -17,11 +17,9 @@ function App () {
         <Route exact path={AppRoute.ROOT}>
           <Main />
         </Route>
-        <Route
-          exact
-          path={AppRoute.LOGIN}
-          render={() => <LoginScreen />}
-        />
+        <Route exact path={AppRoute.LOGIN}>
+          <LoginScreen />
+        </Route>
         <PrivateRoute
           exact
           path={AppRoute.FAVORITES}

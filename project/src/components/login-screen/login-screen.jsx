@@ -1,24 +1,29 @@
-import React, {useRef} from 'react';
+import React, {useRef, useState} from 'react';
 import {Link, Redirect} from 'react-router-dom';
 import {useDispatch, useSelector} from 'react-redux';
 import {login} from '../../store/api-actions';
 import {AppRoute, AuthStatus} from '../../const';
 import {getAuthorizationStatus} from '../../store/user/selector';
+import ErrorMessage from '../error-message/error-message';
 
 function LoginScreen () {
   const emailRef = useRef ();
   const passwordRef = useRef ();
+  const [isFailed, setIsFailed] = useState(false);
 
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const dispatch = useDispatch();
 
   const handleSubmit = (evt) => {
     evt.preventDefault ();
-
-    dispatch(login({
-      login: emailRef.current.value,
-      password: passwordRef.current.value,
-    }));
+    const password = passwordRef.current.value.trim();
+    password.length === 0
+      ? setIsFailed(true)
+      : dispatch(login({
+        login: emailRef.current.value,
+        password: passwordRef.current.value,
+      }))
+        .catch(() => setIsFailed(true));
   };
 
   return (authorizationStatus === AuthStatus.AUTH
@@ -98,6 +103,7 @@ function LoginScreen () {
                 >
                   Sign in
                 </button>
+                {isFailed && <ErrorMessage />}
               </form>
             </section>
             <section className="locations locations--login locations--current">
