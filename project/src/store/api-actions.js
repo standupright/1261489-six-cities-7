@@ -44,6 +44,7 @@ export const getFavoritesList = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(loadFavorties(OffersAdapter.getOffers(data)));
     })
+    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
 );
 
 export const postFavorite = ({id,status}) => (dispatch, _getState, api) => (
