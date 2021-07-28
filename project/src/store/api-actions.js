@@ -15,12 +15,20 @@ import OffersAdapter from '../utils/offersAdapter';
 import CommentsAdapter from '../utils/commentsAdapter';
 import AuthInfoAdapter from '../utils/userAdapter';
 import {generatePath} from 'react-router-dom';
+import Swal from 'sweetalert2';
+
+const showErrorMessage = () => Swal.fire({
+  title: 'Ошибка',
+  text: 'Извините, сервер недоступен. Попробуйте обновить страницу',
+  showCloseButton: true,
+});
 
 export const getOffersList = () => (dispatch, _getState, api) => (
   api.get(ApiRoute.OFFERS)
     .then(({data}) => {
       dispatch(loadOffers(OffersAdapter.getOffers(data)));
     })
+    .catch(() => showErrorMessage())
 );
 
 export const getOffer = (id) => (dispatch, _getState, api) => (
@@ -36,7 +44,7 @@ export const getOffer = (id) => (dispatch, _getState, api) => (
         nearby: OffersAdapter.getOffers(values[1].data),
         comments: CommentsAdapter.getComments(values[2].data),
       })))
-    .catch(() => dispatch(redirectToRoute(AppRoute.NOT_FOUND)))
+    .catch(() => showErrorMessage())
 );
 
 export const getFavoritesList = () => (dispatch, _getState, api) => (
@@ -44,7 +52,7 @@ export const getFavoritesList = () => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(loadFavorties(OffersAdapter.getOffers(data)));
     })
-    .catch(() => dispatch(redirectToRoute(AppRoute.LOGIN)))
+    .catch(() => showErrorMessage())
 );
 
 export const postFavorite = ({id,status}) => (dispatch, _getState, api) => (
@@ -107,5 +115,6 @@ export const login = ({login: email,password}) => (dispatch, _getState, api) => 
 export const logout = () => (dispatch, _getState, api) => {
   api.delete(ApiRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(logoutUser()));
+    .then(() => dispatch(logoutUser()))
+    .catch(() => showErrorMessage());
 };

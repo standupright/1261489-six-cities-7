@@ -2,7 +2,7 @@ import React from 'react';
 import {generatePath, Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import offersPropShape from '../../prop-validation/offers.prop';
-import {AppRoute, RATING_MAX} from '../../const';
+import {AppRoute, OfferTypes, RATING_MAX} from '../../const';
 
 function Card (props) {
   const {
@@ -79,7 +79,7 @@ function Card (props) {
           </Link>
         </h2>
         <p className="place-card__type">
-          {type}
+          {OfferTypes[type]}
         </p>
       </div>
     </article>

@@ -29,7 +29,7 @@ function RoomScreen() {
     }));
   };
 
-  return isCurrentOfferLoaded ? (
+  return isCurrentOfferLoaded && Number(id) === currentOfferData.id ? (
     <div className='page'>
       <Header />
       <Room

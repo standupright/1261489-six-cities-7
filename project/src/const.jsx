@@ -71,8 +71,16 @@ export const OfferInfo = {
 
 export const RATING_MAX = 20;
 export const NUBMER_IMAGES = 6;
-
+export const NUMBER_REVIEWS = 10;
 export const STARS_QUANTITY = 5;
+
+export const StarsTitle = {
+  5: 'perfect',
+  4: 'good',
+  3: 'not bad',
+  2: 'badly',
+  1: 'terribly',
+};
 
 export const DEFAULT_CITY = {
   lat: 52.38333,

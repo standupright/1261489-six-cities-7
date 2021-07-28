@@ -17,14 +17,14 @@ function Map (props) {
 
   const defaultCustomIcon = leaflet.icon ({
     iconUrl: URL_MARKER_DEAFULT,
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
+    iconSize: [27, 39],
+    iconAnchor: [19, 39],
   });
 
   const currentCustomIcon = leaflet.icon ({
     iconUrl: URL_MARKER_CURRENT,
-    iconSize: [30, 30],
-    iconAnchor: [15, 30],
+    iconSize: [27, 39],
+    iconAnchor: [19, 39],
   });
 
   const addMarkersToLayer = useCallback((layerGroup,points) => {

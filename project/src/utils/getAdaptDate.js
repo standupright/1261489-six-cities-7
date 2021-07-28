@@ -5,8 +5,3 @@ export const getAdaptDate = (date) => {
   const adaptDate = `${MONTHS[aDate.getMonth()]} ${aDate.getFullYear()}`;
   return adaptDate;
 };
-
-export const getMiliSeconds = (date) => {
-  const aDate = new Date(date);
-  return aDate.getMilliseconds();
-};

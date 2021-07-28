@@ -6,7 +6,6 @@ import Sorting from '../sorting/sorting';
 import { SortingType } from '../../const';
 import Spinner from '../spinner/spinner';
 import Header from '../header/header';
-import Footer from '../footer/footer';
 import { useDispatch, useSelector } from 'react-redux';
 import { getfilteredOffers, getIsDataLoaded } from '../../store/offers/selector';
 import { getCity } from '../../store/cities/selector';
@@ -117,7 +116,6 @@ function Main() {
             </div>
           </div>
         </main>}
-      <Footer />
     </div>
   );
 }

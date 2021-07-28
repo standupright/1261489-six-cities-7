@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {STARS_QUANTITY, CommentValidation, AuthStatus} from '../../const';
+import {STARS_QUANTITY, CommentValidation, AuthStatus, StarsTitle} from '../../const';
 import {useDispatch, useSelector} from 'react-redux';
 import {postComment} from '../../store/api-actions';
 import {useParams} from 'react-router-dom';
@@ -98,7 +98,7 @@ function ReviewForm() {
               <label
                 htmlFor={`${idStar}-stars`}
                 className='reviews__rating-label form__rating-label'
-                title='perfect'
+                title={StarsTitle[idStar]}
               >
                 <svg className='form__star-image' width='37' height='33'>
                   <use xlinkHref='#icon-star' />
@@ -125,7 +125,7 @@ function ReviewForm() {
           <button
             className='reviews__submit form__submit button'
             type='submit'
-            disabled={isSubmitAvailable ? '' : 'disabled'}
+            disabled={!isSubmitAvailable}
           >
             Submit
           </button>
