@@ -23,3 +23,7 @@ npm install && npm start
 - Redux ( Redux thunk, Redux toolkit)
 - Leaflet (Open Street Map)
 - axios (get/post/delete)
+
+##
+
+<img src='http://ipic.su/img/img7/fs/kiss_944kb.1628857551.png' alt='Внешний вид главной'/>
