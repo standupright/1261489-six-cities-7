@@ -3,7 +3,8 @@
 * Студент: [Алексей Груднов](https://up.htmlacademy.ru/react/7/user/1261489).
 * Наставник: [Алексей Балесный](https://htmlacademy.ru/profile/id221665).
 
-## Проект запускается из директории project
+## Запуск проекта
+Запуск проекта осуществляется через директорию /project
 
 <code>
 npm install && npm start
