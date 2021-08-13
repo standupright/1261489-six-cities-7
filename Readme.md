@@ -6,10 +6,9 @@
 ## Запуск проекта
 Запуск проекта осуществляется из директории /project
 
-<code>  
-npm install  
-npm start  
-</code>  
+<code>
+npm install && npm start
+</code>
 
 ## Используемые технологии
 
